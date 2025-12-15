@@ -1,0 +1,15 @@
+{
+  "name": "vilostudios-website",
+  "version": "1.0.0",
+  "description": "VILOSTUDIOS Premium Animation Studio Website",
+  "scripts": {
+    "dev": "live-server --port=8000 --open=/index.html --ignore=node_modules,database,environment",
+    "start": "live-server --port=8000 --open=/index.html --ignore=node_modules,database,environment",
+    "php-server": "php -S localhost:8001",
+    "server": "node start-server.js"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
+
