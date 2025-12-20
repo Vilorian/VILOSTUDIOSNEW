@@ -46,8 +46,21 @@ const translations = {
       inquiryAnimation: 'Animation Service',
       inquiryOutsourcing: 'Outsourcing',
       inquiryOther: 'Other',
-      formPreferredDate: 'Preferred Date',
-      formPreferredTime: 'Preferred Time',
+      formPreferredDay: 'Preferred Day',
+      formSelectDay: 'Select Day',
+      dayFriday: 'Friday',
+      daySaturday: 'Saturday',
+      daySunday: 'Sunday',
+      formTimezone: 'Your Timezone',
+      formSelectTimezone: 'Select Timezone',
+      formAvailableTime: 'Available Time',
+      selectTimezoneFirst: 'Select your timezone to see available times',
+      timeDisplayCET: '8:00 PM CET',
+      scheduleAppointment: 'Schedule Appointment',
+      yourTimezone: 'Your Timezone',
+      selectTime: 'Select Time',
+      selectDateFirst: 'Select a date to see available times',
+      selectedAppointment: 'Selected Appointment',
       formMessage: 'Message',
       formSubmit: 'Send Message',
       formSubmitting: 'Sending...',
@@ -69,6 +82,9 @@ const translations = {
   },
   ja: {
     nav: { home: 'ホーム', about: '会社概要', portfolio: '作品集', contact: 'お問い合わせ' },
+    calendar: {
+      sun: '日', mon: '月', tue: '火', wed: '水', thu: '木', fri: '金', sat: '土'
+    },
     anime: { text: 'アニメ' },
     about: {
       number: '01',
@@ -108,8 +124,21 @@ const translations = {
       inquiryAnimation: 'アニメーション制作サービス',
       inquiryOutsourcing: 'アウトソーシング',
       inquiryOther: 'その他',
-      formPreferredDate: '希望日',
-      formPreferredTime: '希望時間',
+      formPreferredDay: '希望日',
+      formSelectDay: '日を選択',
+      dayFriday: '金曜日',
+      daySaturday: '土曜日',
+      daySunday: '日曜日',
+      formTimezone: 'タイムゾーン',
+      formSelectTimezone: 'タイムゾーンを選択',
+      formAvailableTime: '利用可能な時間',
+      selectTimezoneFirst: 'タイムゾーンを選択して利用可能な時間を表示',
+      timeDisplayCET: '午後8時 CET',
+      scheduleAppointment: '予約をスケジュール',
+      yourTimezone: 'あなたのタイムゾーン',
+      selectTime: '時間を選択',
+      selectDateFirst: '日付を選択して利用可能な時間を表示',
+      selectedAppointment: '選択された予約',
       formMessage: 'メッセージ',
       formSubmit: '送信',
       formSubmitting: '送信中...',
@@ -131,6 +160,9 @@ const translations = {
   },
   zh: {
     nav: { home: '首页', about: '关于我们', portfolio: '作品集', contact: '联系我们' },
+    calendar: {
+      sun: '日', mon: '一', tue: '二', wed: '三', thu: '四', fri: '五', sat: '六'
+    },
     anime: { text: '动画' },
     about: {
       number: '01',
@@ -170,8 +202,21 @@ const translations = {
       inquiryAnimation: '动画制作服务',
       inquiryOutsourcing: '外包服务',
       inquiryOther: '其他',
-      formPreferredDate: '首选日期',
-      formPreferredTime: '首选时间',
+      formPreferredDay: '首选日期',
+      formSelectDay: '选择日期',
+      dayFriday: '星期五',
+      daySaturday: '星期六',
+      daySunday: '星期日',
+      formTimezone: '您的时区',
+      formSelectTimezone: '选择时区',
+      formAvailableTime: '可用时间',
+      selectTimezoneFirst: '选择您的时区以查看可用时间',
+      timeDisplayCET: '晚上8点 CET',
+      scheduleAppointment: '安排预约',
+      yourTimezone: '您的时区',
+      selectTime: '选择时间',
+      selectDateFirst: '选择日期以查看可用时间',
+      selectedAppointment: '已选预约',
       formMessage: '留言',
       formSubmit: '发送消息',
       formSubmitting: '发送中...',
@@ -280,6 +325,23 @@ function updateTranslations() {
     }
     if (value) el.placeholder = value;
   });
+  
+  // Update calendar month/year display
+  const monthYearEl = document.getElementById('calendar-month-year');
+  if (monthYearEl && typeof renderCalendar === 'function') {
+    renderCalendar();
+  }
+  
+  // Update calendar and scheduler if initialized
+  if (typeof renderCalendar === 'function') {
+    renderCalendar();
+  }
+  if (typeof renderTimeSlots === 'function') {
+    renderTimeSlots();
+  }
+  if (typeof updateAppointmentSummary === 'function') {
+    updateAppointmentSummary();
+  }
 }
 
 // Background Video Management
@@ -316,6 +378,14 @@ function initBackgroundVideo() {
   ensureNoLoop(video1);
   ensureNoLoop(video2);
   
+  // Ensure videos are muted and have autoplay attributes
+  video1.muted = true;
+  video2.muted = true;
+  video1.setAttribute('muted', '');
+  video2.setAttribute('muted', '');
+  video1.setAttribute('playsinline', '');
+  video2.setAttribute('playsinline', '');
+  
   video1.style.opacity = '1';
   video1.style.zIndex = '0';
   video2.style.opacity = '0';
@@ -327,12 +397,82 @@ function initBackgroundVideo() {
   
   loadAndPlayVideo(video1, videoSources[0]).then(() => {
     video1.addEventListener('ended', handleVideoEnded, { once: false });
+    
+    // Ensure video keeps playing
+    if (video1.paused) {
+      video1.play().catch(() => {
+        // If autoplay fails, try on user interaction
+        const tryPlay = () => {
+          video1.play().catch(() => {});
+          document.removeEventListener('click', tryPlay);
+          document.removeEventListener('touchstart', tryPlay);
+        };
+        document.addEventListener('click', tryPlay, { once: true });
+        document.addEventListener('touchstart', tryPlay, { once: true });
+      });
+    }
+    
+    // Monitor if video stops unexpectedly
+    video1.addEventListener('pause', () => {
+      if (video1 === activeVideo && !isSwitching) {
+        // Video paused unexpectedly, try to resume
+        setTimeout(() => {
+          if (video1.paused && video1 === activeVideo && !isSwitching) {
+            video1.play().catch(() => {});
+          }
+        }, 100);
+      }
+    });
+    
+    // Monitor video errors
+    video1.addEventListener('error', () => {
+      console.warn('Video error, trying next video');
+      if (videoSources.length > 1) {
+        currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
+        loadAndPlayVideo(video1, videoSources[currentVideoIndex]).catch(() => {});
+      }
+    });
+  }).catch((err) => {
+    console.error('Failed to load initial video:', err);
+    // Try to load next video if first fails
+    if (videoSources.length > 1) {
+      currentVideoIndex = 1;
+      loadAndPlayVideo(video1, videoSources[1]).then(() => {
+        video1.addEventListener('ended', handleVideoEnded, { once: false });
+      });
+    }
   });
+  
+  // Also set up video2 with pause monitoring
+  video2.addEventListener('pause', () => {
+    if (video2 === activeVideo && !isSwitching) {
+      setTimeout(() => {
+        if (video2.paused && video2 === activeVideo && !isSwitching) {
+          video2.play().catch(() => {});
+        }
+      }, 100);
+    }
+  });
+  
+  // Periodic check to ensure video is playing
+  setInterval(() => {
+    if (activeVideo && activeVideo.paused && !isSwitching) {
+      activeVideo.play().catch(() => {
+        // If play fails, try reloading
+        if (videoSources.length > 0) {
+          loadAndPlayVideo(activeVideo, videoSources[currentVideoIndex]).catch(() => {});
+        }
+      });
+    }
+  }, 2000); // Check every 2 seconds
 }
 
 function ensureNoLoop(video) {
   video.loop = false;
   video.removeAttribute('loop');
+  // Ensure autoplay is set
+  video.setAttribute('autoplay', '');
+  video.autoplay = true;
 }
 
 function loadAndPlayVideo(video, src) {
@@ -341,6 +481,13 @@ function loadAndPlayVideo(video, src) {
     video.pause();
     video.currentTime = 0;
     ensureNoLoop(video);
+    
+    // Ensure video attributes are set for autoplay
+    video.muted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('autoplay', '');
+    video.autoplay = true;
     
     // Remove any existing event listeners to prevent duplicates
     const tempHandler = () => {};
@@ -365,21 +512,37 @@ function loadAndPlayVideo(video, src) {
       
       const playVideo = () => {
         if (resolved) return;
-        video.play().then(() => {
-          if (!resolved) {
-            resolved = true;
-            if (video === activeVideo) {
-              video.style.opacity = '1';
-              video.style.zIndex = '0';
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            if (!resolved) {
+              resolved = true;
+              if (video === activeVideo) {
+                video.style.opacity = '1';
+                video.style.zIndex = '0';
+              }
+              // Ensure video keeps playing
+              video.play().catch(() => {});
+              resolve();
             }
-            resolve();
-          }
-        }).catch((err) => {
-          if (!resolved) {
-            resolved = true;
-            reject(err);
-          }
-        });
+          }).catch((err) => {
+            // If autoplay fails, try again after user interaction
+            console.warn('Video autoplay failed, will retry:', err);
+            if (!resolved) {
+              // Don't reject, just log - video might play later
+              resolved = true;
+              // Try to play again after a short delay
+              setTimeout(() => {
+                video.play().catch(() => {});
+              }, 1000);
+              resolve();
+            }
+          });
+        } else {
+          // Fallback for older browsers
+          resolved = true;
+          resolve();
+        }
       };
       
       // Wait for video to be ready
@@ -461,7 +624,13 @@ function switchToNext() {
     // Ensure new video is ready and playing before starting transition
     if (inactive.readyState >= 3) {
       // Start playing the new video silently (opacity 0)
-      inactive.play().catch(() => {});
+      const playPromise = inactive.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // If play fails, try again
+          setTimeout(() => inactive.play().catch(() => {}), 500);
+        });
+      }
       
       // Small delay to ensure video is playing
       setTimeout(() => {
@@ -501,6 +670,11 @@ function switchToNext() {
             // Ensure new active is visible and playing
             newActive.style.opacity = '1';
             newActive.style.zIndex = '0';
+            
+            // Ensure video is playing
+            if (newActive.paused) {
+              newActive.play().catch(() => {});
+            }
             
             // Add ended listener to the new active video
             ensureNoLoop(newActive);
@@ -555,8 +729,11 @@ function switchToNext() {
 
 // Navigation
 let activeSection = 'home';
+let isScrolling = false;
+let isUserScrolling = false;
+let scrollTimeout = null;
 
-function updateActiveSection() {
+function updateActiveSection(updateHash = false) {
   const sections = ['home', 'about', 'portfolio', 'contact'];
   const scrollPosition = window.scrollY + 200;
   
@@ -571,9 +748,16 @@ function updateActiveSection() {
             link.classList.toggle('active', link.dataset.section === section);
           });
           
-          // Update URL hash to reflect current section
-          const langCode = currentLanguage === 'ja' ? 'jp' : currentLanguage === 'zh' ? 'ch' : 'en';
-          window.location.hash = section === 'home' ? `#${langCode}` : `#${section}/${langCode}`;
+          // Only update hash if explicitly requested (from navigation click)
+          // Don't update hash during user scrolling to prevent feedback loop
+          if (updateHash && !isUserScrolling) {
+            const langCode = currentLanguage === 'ja' ? 'jp' : currentLanguage === 'zh' ? 'ch' : 'en';
+            const newHash = section === 'home' ? `#${langCode}` : `#${section}/${langCode}`;
+            // Use replaceState to avoid triggering hashchange
+            if (window.location.hash !== newHash) {
+              window.history.replaceState(null, '', newHash);
+            }
+          }
           
           // Update page title
           const sectionNames = {
@@ -590,13 +774,53 @@ function updateActiveSection() {
   }
 }
 
-function scrollToSection(id) {
+function scrollToSection(id, updateHash = true) {
+  if (isScrolling) return;
+  
   const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Update URL hash (works without server-side routing)
-    const langCode = currentLanguage === 'ja' ? 'jp' : currentLanguage === 'zh' ? 'ch' : 'en';
-    window.location.hash = id === 'home' ? `#${langCode}` : `#${id}/${langCode}`;
+  if (!element) return;
+  
+  // Check if we're already at this section (within 100px)
+  const scrollY = window.scrollY || window.pageYOffset;
+  const elementTop = element.offsetTop;
+  const elementBottom = elementTop + element.offsetHeight;
+  
+  if (scrollY >= elementTop - 100 && scrollY < elementBottom) {
+    // Already at this section, just update UI
+    activeSection = id;
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.toggle('active', link.dataset.section === id);
+    });
+    return;
+  }
+  
+  isScrolling = true;
+  isUserScrolling = false; // This is a programmatic scroll
+  
+  // Use scrollTo for better control
+  const targetY = Math.max(0, elementTop - 80); // Account for nav bar, ensure non-negative
+  
+  // Update UI immediately
+  activeSection = id;
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.classList.toggle('active', link.dataset.section === id);
+  });
+  
+  // Perform smooth scroll
+  window.scrollTo({
+    top: targetY,
+    behavior: 'smooth'
+  });
+  
+  // Update hash and title after a short delay
+  setTimeout(() => {
+    if (updateHash) {
+      const langCode = currentLanguage === 'ja' ? 'jp' : currentLanguage === 'zh' ? 'ch' : 'en';
+      const newHash = id === 'home' ? `#${langCode}` : `#${id}/${langCode}`;
+      if (window.location.hash !== newHash) {
+        window.history.replaceState(null, '', newHash);
+      }
+    }
     
     // Update page title
     const sectionNames = {
@@ -606,22 +830,391 @@ function scrollToSection(id) {
       contact: 'Contact'
     };
     document.title = `${sectionNames[id] || 'Home'} - VILOSTUDIOS`;
-  }
+  }, 50);
+  
+  // Reset scrolling flag after animation completes (smooth scroll typically takes ~500ms)
+  setTimeout(() => {
+    isScrolling = false;
+  }, 1000);
 }
 
 // Contact Form
 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1431297607623246016/QFnruCHzMVOdbMsyYtdp7iy3rlFMU7qBkmEo787GwZoBzggrgaZEmYFbXytmDaqY1_NI';
 
+// Available times: Friday, Saturday, Sunday from 8pm to 10pm CET (hourly)
+const AVAILABLE_TIMES = {
+  5: [{ hour: 20, minute: 0 }, { hour: 21, minute: 0 }, { hour: 22, minute: 0 }], // Friday: 8pm, 9pm, 10pm
+  6: [{ hour: 20, minute: 0 }, { hour: 21, minute: 0 }, { hour: 22, minute: 0 }], // Saturday: 8pm, 9pm, 10pm
+  0: [{ hour: 20, minute: 0 }, { hour: 21, minute: 0 }, { hour: 22, minute: 0 }]  // Sunday: 8pm, 9pm, 10pm
+};
+
+// Calendar state
+let currentCalendarMonth = new Date().getMonth();
+let currentCalendarYear = new Date().getFullYear();
+let selectedDate = null;
+let selectedTime = null;
+let selectedTimezone = null;
+
+// Common timezones
+const TIMEZONES = [
+  { value: 'Europe/London', label: 'Europe/London (GMT)' },
+  { value: 'Europe/Paris', label: 'Europe/Paris (CET)' },
+  { value: 'Europe/Berlin', label: 'Europe/Berlin (CET)' },
+  { value: 'Europe/Rome', label: 'Europe/Rome (CET)' },
+  { value: 'Europe/Madrid', label: 'Europe/Madrid (CET)' },
+  { value: 'Europe/Amsterdam', label: 'Europe/Amsterdam (CET)' },
+  { value: 'Europe/Brussels', label: 'Europe/Brussels (CET)' },
+  { value: 'Europe/Vienna', label: 'Europe/Vienna (CET)' },
+  { value: 'Europe/Prague', label: 'Europe/Prague (CET)' },
+  { value: 'Europe/Warsaw', label: 'Europe/Warsaw (CET)' },
+  { value: 'Europe/Stockholm', label: 'Europe/Stockholm (CET)' },
+  { value: 'Europe/Copenhagen', label: 'Europe/Copenhagen (CET)' },
+  { value: 'Europe/Helsinki', label: 'Europe/Helsinki (EET)' },
+  { value: 'Europe/Athens', label: 'Europe/Athens (EET)' },
+  { value: 'Europe/Istanbul', label: 'Europe/Istanbul (TRT)' },
+  { value: 'Europe/Moscow', label: 'Europe/Moscow (MSK)' },
+  { value: 'America/New_York', label: 'America/New_York (EST/EDT)' },
+  { value: 'America/Chicago', label: 'America/Chicago (CST/CDT)' },
+  { value: 'America/Denver', label: 'America/Denver (MST/MDT)' },
+  { value: 'America/Los_Angeles', label: 'America/Los_Angeles (PST/PDT)' },
+  { value: 'America/Toronto', label: 'America/Toronto (EST/EDT)' },
+  { value: 'America/Vancouver', label: 'America/Vancouver (PST/PDT)' },
+  { value: 'America/Mexico_City', label: 'America/Mexico_City (CST)' },
+  { value: 'America/Sao_Paulo', label: 'America/Sao_Paulo (BRT)' },
+  { value: 'America/Buenos_Aires', label: 'America/Buenos_Aires (ART)' },
+  { value: 'Asia/Tokyo', label: 'Asia/Tokyo (JST)' },
+  { value: 'Asia/Shanghai', label: 'Asia/Shanghai (CST)' },
+  { value: 'Asia/Hong_Kong', label: 'Asia/Hong_Kong (HKT)' },
+  { value: 'Asia/Singapore', label: 'Asia/Singapore (SGT)' },
+  { value: 'Asia/Seoul', label: 'Asia/Seoul (KST)' },
+  { value: 'Asia/Dubai', label: 'Asia/Dubai (GST)' },
+  { value: 'Asia/Kolkata', label: 'Asia/Kolkata (IST)' },
+  { value: 'Asia/Bangkok', label: 'Asia/Bangkok (ICT)' },
+  { value: 'Australia/Sydney', label: 'Australia/Sydney (AEDT/AEST)' },
+  { value: 'Australia/Melbourne', label: 'Australia/Melbourne (AEDT/AEST)' },
+  { value: 'Pacific/Auckland', label: 'Pacific/Auckland (NZDT/NZST)' }
+];
+
+function convertCETToTimezone(date, cetHour, cetMinute, targetTimezone) {
+  try {
+    // Create date string for the selected date at CET time
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateTimeStr = `${year}-${month}-${day}T${String(cetHour).padStart(2, '0')}:${String(cetMinute).padStart(2, '0')}:00`;
+    
+    // Create a date representing this time in CET
+    // We need to create a date that when formatted in CET shows our desired time
+    // Then format that same moment in the target timezone
+    
+    // Create date assuming it's in CET (Europe/Paris)
+    const cetDate = new Date(dateTimeStr);
+    
+    // Get what this date represents in UTC when interpreted as CET
+    // We'll use a formatter to convert
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/Paris',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+    
+    // Find the UTC equivalent by creating a date and adjusting
+    let utcDate = new Date(`${year}-${month}-${day}T${String(cetHour).padStart(2, '0')}:${String(cetMinute).padStart(2, '0')}:00`);
+    
+    // Calculate offset between UTC and CET for this date
+    const testDate = new Date(`${year}-${month}-${day}T12:00:00Z`);
+    const cetTime = new Date(testDate.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
+    const utcTime = new Date(testDate.toLocaleString('en-US', { timeZone: 'UTC' }));
+    const offsetMs = cetTime.getTime() - utcTime.getTime();
+    
+    // Adjust UTC date to represent CET time
+    utcDate.setTime(utcDate.getTime() - offsetMs);
+    
+    // Now format this UTC moment in the target timezone
+    const targetFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: targetTimezone,
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZoneName: 'short'
+    });
+    
+    const parts = targetFormatter.formatToParts(utcDate);
+    const hourPart = parts.find(p => p.type === 'hour')?.value || '8';
+    const minutePart = parts.find(p => p.type === 'minute')?.value || '00';
+    const dayPeriod = parts.find(p => p.type === 'dayPeriod')?.value || 'PM';
+    const timeZoneName = parts.find(p => p.type === 'timeZoneName')?.value || '';
+    
+    return {
+      hour: parseInt(hourPart),
+      minute: parseInt(minutePart),
+      dayPeriod: dayPeriod,
+      timeZoneName: timeZoneName,
+      formatted: `${hourPart}:${minutePart} ${dayPeriod} ${timeZoneName}`.trim(),
+      utcDate: utcDate
+    };
+  } catch (error) {
+    console.error('Timezone conversion error:', error);
+    return { formatted: '8:00 PM CET', utcDate: new Date() };
+  }
+}
+
+// Calendar Functions
+function renderCalendar() {
+  const calendarDays = document.getElementById('calendar-days');
+  const monthYear = document.getElementById('calendar-month-year');
+  if (!calendarDays || !monthYear) return;
+  
+  const firstDay = new Date(currentCalendarYear, currentCalendarMonth, 1);
+  const lastDay = new Date(currentCalendarYear, currentCalendarMonth + 1, 0);
+  const startDate = new Date(firstDay);
+  startDate.setDate(startDate.getDate() - startDate.getDay()); // Start from Sunday
+  
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+  monthYear.textContent = `${monthNames[currentCalendarMonth]} ${currentCalendarYear}`;
+  
+  calendarDays.innerHTML = '';
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  // Render 42 days (6 weeks)
+  for (let i = 0; i < 42; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    
+    const dayElement = document.createElement('div');
+    dayElement.className = 'calendar-day';
+    dayElement.textContent = date.getDate();
+    dayElement.dataset.date = date.toISOString().split('T')[0];
+    
+    const dateOnly = new Date(date);
+    dateOnly.setHours(0, 0, 0, 0);
+    
+    // Check if it's in current month
+    if (date.getMonth() !== currentCalendarMonth) {
+      dayElement.classList.add('other-month');
+    }
+    
+    // Check if it's today
+    if (dateOnly.getTime() === today.getTime()) {
+      dayElement.classList.add('today');
+    }
+    
+    // Check if it's selected
+    if (selectedDate && dateOnly.getTime() === selectedDate.getTime()) {
+      dayElement.classList.add('selected');
+    }
+    
+    // Check if it's an available day (Friday=5, Saturday=6, Sunday=0)
+    const dayOfWeek = date.getDay();
+    const isAvailableDay = (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0); // Friday, Saturday, Sunday
+    const isPastDate = dateOnly < today;
+    
+    if (isAvailableDay && !isPastDate) {
+      // Only Friday, Saturday, Sunday in the future are available
+      dayElement.classList.add('available');
+      dayElement.addEventListener('click', () => selectDate(date));
+    } else {
+      // Disable all other days
+      dayElement.style.opacity = '0.3';
+      dayElement.style.cursor = 'not-allowed';
+      dayElement.style.pointerEvents = 'none';
+    }
+    
+    calendarDays.appendChild(dayElement);
+  }
+}
+
+function selectDate(date) {
+  const dateOnly = new Date(date);
+  dateOnly.setHours(0, 0, 0, 0);
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  // Only allow selection of Friday (5), Saturday (6), or Sunday (0)
+  const dayOfWeek = dateOnly.getDay();
+  if (dateOnly < today || (dayOfWeek !== 5 && dayOfWeek !== 6 && dayOfWeek !== 0)) {
+    return;
+  }
+  
+  selectedDate = dateOnly;
+  selectedTime = null;
+  renderCalendar();
+  renderTimeSlots();
+  updateAppointmentSummary();
+}
+
+function renderTimeSlots() {
+  const timeSlotsGrid = document.getElementById('time-slots-grid');
+  if (!timeSlotsGrid) return;
+  
+  if (!selectedDate) {
+    timeSlotsGrid.innerHTML = `
+      <div class="time-slot-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+          <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+        <span data-i18n="contact.selectDateFirst">Select a date to see available times</span>
+      </div>
+    `;
+    return;
+  }
+  
+  const dayOfWeek = selectedDate.getDay();
+  const availableTimes = AVAILABLE_TIMES[dayOfWeek];
+  
+  if (!availableTimes || !selectedTimezone) {
+    timeSlotsGrid.innerHTML = `
+      <div class="time-slot-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+          <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+        <span data-i18n="contact.selectTimezoneFirst">Select your timezone to see available times</span>
+      </div>
+    `;
+    return;
+  }
+  
+  timeSlotsGrid.innerHTML = '';
+  
+  availableTimes.forEach(timeSlot => {
+    const converted = convertCETToTimezone(selectedDate, timeSlot.hour, timeSlot.minute, selectedTimezone);
+    const timeElement = document.createElement('div');
+    timeElement.className = 'time-slot';
+    if (selectedTime && selectedTime.hour === timeSlot.hour && selectedTime.minute === timeSlot.minute) {
+      timeElement.classList.add('selected');
+    }
+    timeElement.textContent = converted.formatted;
+    timeElement.dataset.hour = timeSlot.hour;
+    timeElement.dataset.minute = timeSlot.minute;
+    timeElement.addEventListener('click', () => selectTime(timeSlot, converted));
+    timeSlotsGrid.appendChild(timeElement);
+  });
+}
+
+function selectTime(timeSlot, converted) {
+  selectedTime = timeSlot;
+  renderTimeSlots();
+  updateAppointmentSummary();
+}
+
+function updateAppointmentSummary() {
+  const summary = document.getElementById('appointment-summary');
+  const summaryDate = document.getElementById('summary-date');
+  const summaryTime = document.getElementById('summary-time');
+  const summaryTimezone = document.getElementById('summary-timezone');
+  
+  if (!summary) return;
+  
+  if (selectedDate && selectedTime && selectedTimezone) {
+    summary.style.display = 'block';
+    
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    if (summaryDate) summaryDate.textContent = dateFormatter.format(selectedDate);
+    
+    const converted = convertCETToTimezone(selectedDate, selectedTime.hour, selectedTime.minute, selectedTimezone);
+    if (summaryTime) summaryTime.textContent = converted.formatted;
+    if (summaryTimezone) {
+      const tzName = TIMEZONES.find(tz => tz.value === selectedTimezone)?.label || selectedTimezone;
+      summaryTimezone.textContent = `Timezone: ${tzName}`;
+    }
+  } else {
+    summary.style.display = 'none';
+  }
+}
+
+function populateTimezones() {
+  const timezoneSelect = document.getElementById('form-timezone');
+  if (!timezoneSelect) return;
+  
+  timezoneSelect.innerHTML = '<option value="" data-i18n="contact.formSelectTimezone">Select Timezone</option>';
+  
+  TIMEZONES.forEach(tz => {
+    const option = document.createElement('option');
+    option.value = tz.value;
+    option.textContent = tz.label;
+    timezoneSelect.appendChild(option);
+  });
+  
+  // Try to detect user's timezone
+  try {
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const matchingOption = Array.from(timezoneSelect.options).find(opt => opt.value === userTimezone);
+    if (matchingOption) {
+      timezoneSelect.value = userTimezone;
+      selectedTimezone = userTimezone;
+      renderTimeSlots();
+    }
+  } catch (e) {
+    // Ignore if detection fails
+  }
+}
+
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
   
-  // Set min date to today
-  const dateInput = document.getElementById('form-date');
-  if (dateInput) {
-    dateInput.min = new Date().toISOString().split('T')[0];
+  // Bot detection: Track form open time
+  const formOpenTime = Date.now();
+  
+  // Initialize calendar
+  renderCalendar();
+  
+  // Calendar navigation
+  const prevBtn = document.getElementById('calendar-prev');
+  const nextBtn = document.getElementById('calendar-next');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentCalendarMonth--;
+      if (currentCalendarMonth < 0) {
+        currentCalendarMonth = 11;
+        currentCalendarYear--;
+      }
+      renderCalendar();
+    });
   }
   
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentCalendarMonth++;
+      if (currentCalendarMonth > 11) {
+        currentCalendarMonth = 0;
+        currentCalendarYear++;
+      }
+      renderCalendar();
+    });
+  }
+  
+  // Populate timezones
+  populateTimezones();
+  
+  // Timezone change handler
+  const timezoneSelect = document.getElementById('form-timezone');
+  if (timezoneSelect) {
+    timezoneSelect.addEventListener('change', (e) => {
+      selectedTimezone = e.target.value;
+      renderTimeSlots();
+      updateAppointmentSummary();
+    });
+  }
+  
+  // Form submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -629,17 +1222,84 @@ function initContactForm() {
     const statusDiv = document.getElementById('form-status');
     const t = translations[currentLanguage].contact;
     
+    // Bot Detection Checks
+    const honeypotField = document.getElementById('form-website');
+    if (honeypotField && honeypotField.value) {
+      // Bot filled honeypot field
+      console.warn('Bot detected: Honeypot field filled');
+      statusDiv.className = 'form-status error';
+      statusDiv.textContent = 'Submission blocked for security reasons.';
+      statusDiv.style.display = 'block';
+      return;
+    }
+    
+    // Check time elapsed (too fast = bot, minimum 3 seconds)
+    const formStartTime = parseInt(form.dataset.formStartTime || Date.now());
+    const timeElapsed = Date.now() - formStartTime;
+    if (timeElapsed < 3000) {
+      console.warn('Bot detected: Form submitted too quickly');
+      statusDiv.className = 'form-status error';
+      statusDiv.textContent = 'Please take your time filling out the form.';
+      statusDiv.style.display = 'block';
+      return;
+    }
+    
+    // Rate limiting: Check submissions in last hour
+    const email = document.getElementById('form-email').value.trim();
+    const lastSubmissionKey = 'vilostudios_contact_last_submission_' + btoa(email).replace(/[^a-zA-Z0-9]/g, '');
+    const submissionCountKey = 'vilostudios_contact_submission_count_' + btoa(email).replace(/[^a-zA-Z0-9]/g, '');
+    const lastSubmission = localStorage.getItem(lastSubmissionKey);
+    const submissionCount = parseInt(localStorage.getItem(submissionCountKey) || '0');
+    
+    if (lastSubmission) {
+      const timeSinceLastSubmission = Date.now() - parseInt(lastSubmission);
+      const oneHour = 60 * 60 * 1000;
+      
+      if (timeSinceLastSubmission < oneHour) {
+        if (submissionCount >= 3) {
+          statusDiv.className = 'form-status error';
+          statusDiv.textContent = 'Too many submissions. Please try again later.';
+          statusDiv.style.display = 'block';
+          return;
+        }
+      } else {
+        // Reset counter after 1 hour
+        localStorage.setItem(submissionCountKey, '0');
+      }
+    }
+    
+    // Validate scheduler
+    if (!selectedDate || !selectedTime || !selectedTimezone) {
+      statusDiv.className = 'form-status error';
+      statusDiv.textContent = 'Please select a date, time, and timezone';
+      statusDiv.style.display = 'block';
+      return;
+    }
+    
     submitBtn.disabled = true;
     submitBtn.textContent = t.formSubmitting;
     statusDiv.style.display = 'none';
+    
+    const converted = convertCETToTimezone(selectedDate, selectedTime.hour, selectedTime.minute, selectedTimezone);
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    const formStartTime = parseInt(form.dataset.formStartTime || Date.now().toString());
     
     const formData = {
       name: document.getElementById('form-name').value,
       email: document.getElementById('form-email').value,
       inquiryType: document.getElementById('form-inquiry-type').value,
-      preferredDate: document.getElementById('form-date').value,
-      preferredTime: document.getElementById('form-time').value,
-      message: document.getElementById('form-message').value
+      appointmentDate: dateFormatter.format(selectedDate),
+      appointmentTime: converted.formatted,
+      appointmentTimeCET: `8:00 PM CET`,
+      timezone: selectedTimezone,
+      message: document.getElementById('form-message').value,
+      form_start_time: Math.floor(formStartTime / 1000) // Send to backend for validation
     };
     
     try {
@@ -647,16 +1307,28 @@ function initContactForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          content: `**New Schedule Request**\n\n**Name:** ${formData.name}\n**Email:** ${formData.email}\n**Inquiry Type:** ${formData.inquiryType || 'Not specified'}\n**Preferred Date:** ${formData.preferredDate || 'Not specified'}\n**Preferred Time:** ${formData.preferredTime || 'Not specified'}\n**Message:**\n${formData.message}`,
+          content: `**New Schedule Request**\n\n**Name:** ${formData.name}\n**Email:** ${formData.email}\n**Inquiry Type:** ${formData.inquiryType || 'Not specified'}\n**Appointment Date:** ${formData.appointmentDate}\n**Appointment Time:** ${formData.appointmentTime}\n**Time (CET):** ${formData.appointmentTimeCET}\n**Timezone:** ${formData.timezone}\n**Message:**\n${formData.message}`,
           username: 'VILOSTUDIOS Contact Form'
         })
       });
       
       if (response.ok) {
+        // Update rate limiting
+        localStorage.setItem(lastSubmissionKey, Date.now().toString());
+        localStorage.setItem(submissionCountKey, (submissionCount + 1).toString());
+        
         statusDiv.className = 'form-status success';
         statusDiv.textContent = t.formSuccess;
         statusDiv.style.display = 'block';
         form.reset();
+        // Reset form start time for next submission
+        form.dataset.formStartTime = Date.now().toString();
+        selectedDate = null;
+        selectedTime = null;
+        selectedTimezone = null;
+        renderCalendar();
+        renderTimeSlots();
+        updateAppointmentSummary();
       } else {
         throw new Error('Failed to send');
       }
@@ -703,6 +1375,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Handle URL routing (hash-based for static sites)
   function handleRouting() {
+    // Don't handle routing if we're already scrolling
+    if (isScrolling) return;
+    
     const hash = window.location.hash;
     
     // Handle login route
@@ -750,14 +1425,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    // Scroll to section
-    if (section && ['home', 'about', 'portfolio', 'contact'].includes(section)) {
-      setTimeout(() => scrollToSection(section), 100);
+    // Scroll to section only if it's different from current active section
+    if (section && ['home', 'about', 'portfolio', 'contact'].includes(section) && section !== activeSection) {
+      isUserScrolling = false; // This is a hash change, not user scrolling
+      setTimeout(() => scrollToSection(section, false), 100);
     }
   }
   
   // Handle hash changes
   window.addEventListener('hashchange', () => {
+    // Don't handle hash changes if we're programmatically scrolling
+    if (isScrolling) return;
+    
     const hash = window.location.hash;
     if (hash === '#login') {
       window.location.href = 'login.html';
@@ -776,8 +1455,11 @@ document.addEventListener('DOMContentLoaded', () => {
       setLanguage(lang);
       const langCode = lang === 'ja' ? 'jp' : lang === 'zh' ? 'ch' : 'en';
       
-      // Update URL hash
-      window.location.hash = activeSection === 'home' ? `#${langCode}` : `#${activeSection}/${langCode}`;
+      // Update URL hash using replaceState to avoid triggering hashchange
+      const newHash = activeSection === 'home' ? `#${langCode}` : `#${activeSection}/${langCode}`;
+      if (window.location.hash !== newHash) {
+        window.history.replaceState(null, '', newHash);
+      }
     });
   });
   
@@ -786,7 +1468,8 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const section = link.dataset.section;
-      scrollToSection(section);
+      isUserScrolling = false; // This is a navigation click, not user scrolling
+      scrollToSection(section, true);
     });
   });
   
@@ -832,14 +1515,35 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScrollY = window.scrollY;
   
   function handleScroll() {
-    if (scrollRafId) return;
+    // Don't handle scroll if we're programmatically scrolling
+    if (isScrolling) {
+      return;
+    }
+    
+    // Mark as user scrolling
+    isUserScrolling = true;
+    
+    // Clear any existing timeout
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    
+    // Reset user scrolling flag after scroll stops (longer delay to prevent conflicts)
+    scrollTimeout = setTimeout(() => {
+      isUserScrolling = false;
+    }, 300);
+    
+    if (scrollRafId) {
+      return;
+    }
     
     scrollRafId = requestAnimationFrame(() => {
       const currentScrollY = window.scrollY || window.pageYOffset;
       
-      // Only update if scroll position actually changed
-      if (Math.abs(currentScrollY - lastScrollY) > 0.5) {
-        updateActiveSection();
+      // Only update if scroll position actually changed significantly
+      if (Math.abs(currentScrollY - lastScrollY) > 5) {
+        // Don't update hash during user scrolling - only update nav active state
+        updateActiveSection(false);
         updateAnimatedTitleOpacity();
         resetInactivityTimer(); // Reset timer on scroll
         lastScrollY = currentScrollY;
@@ -885,11 +1589,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Handle initial hash
   const hash = window.location.hash;
-  if (hash) {
+  if (hash && hash !== '#login') {
     const match = hash.match(/^#([a-z]+)-?(jp|eng|ch|en|ja|zh)?$/i);
     if (match) {
       const section = match[1];
-      setTimeout(() => scrollToSection(section), 300);
+      if (['home', 'about', 'portfolio', 'contact'].includes(section)) {
+        isUserScrolling = false; // This is initial load, not user scrolling
+        setTimeout(() => scrollToSection(section, false), 300);
+      }
     }
   }
 
