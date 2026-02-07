@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apply for a position at VILOSTUDIOS">
+  <title>Apply - VILOSTUDIOS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0A0A0A;
+      --bg-secondary: #1A1A1F;
+      --bg-tertiary: rgba(255, 255, 255, 0.03);
+      --bg-hover: rgba(255, 255, 255, 0.05);
+      
+      --border-default: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --border-input: rgba(255, 255, 255, 0.1);
+      
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --text-muted: rgba(255, 255, 255, 0.5);
+      
+      --accent-orange: #FF6B35;
+      --accent-orange-hover: #FF8C42;
+      --accent-green: #4ADE80;
+      --accent-red: #F87171;
+      
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 10px;
+      --radius-xl: 12px;
+      
+      --font-xs: 0.6875rem;
+      --font-sm: 0.75rem;
+      --font-base: 0.8125rem;
+      --font-md: 0.875rem;
+      --font-lg: 0.9375rem;
+      --font-xl: 1rem;
+      --font-2xl: 1.125rem;
+      
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 0.75rem;
+      --spacing-lg: 1rem;
+      --spacing-xl: 1.5rem;
+      --spacing-2xl: 2rem;
+      --spacing-3xl: 3rem;
+      
+      --transition-base: 0.2s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #1a1a1f 0%, #1f1f24 25%, #1a1a1f 50%, #1f1f24 75%, #1a1a1f 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .apply-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-3xl) var(--spacing-xl);
+      position: relative;
+    }
+    
+    .apply-page::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .apply-header {
+      margin-bottom: var(--spacing-3xl);
+      padding-bottom: var(--spacing-2xl);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .apply-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: var(--font-md);
+      margin-bottom: var(--spacing-xl);
+      transition: all var(--transition-base);
+    }
+    
+    .apply-back-link:hover {
+      color: var(--accent-orange);
+      transform: translateX(-4px);
+    }
+    
+    .apply-back-link svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .apply-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-md);
+      line-height: 1.2;
+    }
+    
+    .position-badges {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+    
+    .position-badge {
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 8px;
+      font-size: var(--font-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .badge-department {
+      background: rgba(96, 165, 250, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      color: #60A5FA;
+    }
+    
+    .badge-employment {
+      background: rgba(74, 222, 128, 0.15);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: var(--accent-green);
+    }
+    
+    .position-location {
+      font-size: var(--font-md);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+    
+    .apply-content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--spacing-3xl);
+      margin-top: var(--spacing-3xl);
+    }
+    
+    @media (max-width: 968px) {
+      .apply-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .position-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2xl);
+    }
+    
+    .detail-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 16px;
+      padding: var(--spacing-2xl);
+    }
+    
+    .detail-section h2 {
+      font-size: var(--font-2xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-lg);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .detail-section p {
+      font-size: var(--font-md);
+      line-height: 1.8;
+      color: var(--text-secondary);
+      white-space: pre-line;
+    }
+    
+    .detail-requirements {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .detail-requirements li {
+      padding: var(--spacing-sm) 0;
+      padding-left: var(--spacing-xl);
+      position: relative;
+      color: var(--text-secondary);
+      font-size: var(--font-md);
+      line-height: 1.8;
+    }
+    
+    .detail-requirements li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent-orange);
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    
+    .apply-form-section {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 107, 53, 0.02) 100%);
+      border: 1px solid var(--border-default);
+      border-radius: 16px;
+      padding: var(--spacing-3xl);
+      position: sticky;
+      top: var(--spacing-2xl);
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+    
+    .apply-form-section::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .apply-form-section::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+    }
+    
+    .apply-form-section::-webkit-scrollbar-thumb {
+      background: rgba(255, 107, 53, 0.3);
+      border-radius: 3px;
+    }
+    
+    .apply-form-section::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 107, 53, 0.5);
+    }
+    
+    .apply-form-header {
+      margin-bottom: var(--spacing-2xl);
+    }
+    
+    .apply-form-header h2 {
+      font-size: var(--font-2xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .apply-form-subtitle {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .apply-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2xl);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+    }
+    
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+    
+    .form-group label {
+      font-size: var(--font-md);
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    
+    .form-group label svg {
+      color: var(--accent-orange);
+      opacity: 0.8;
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+    
+    .optional-label {
+      font-weight: 400;
+      color: var(--text-secondary);
+      font-size: 0.9em;
+    }
+    
+    .form-input {
+      padding: var(--spacing-lg) var(--spacing-xl);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid var(--border-input);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: var(--font-md);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+    
+    .form-input:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 107, 53, 0.3);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-orange);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    .form-input:invalid:not(:placeholder-shown) {
+      border-color: rgba(248, 113, 113, 0.5);
+      background: rgba(248, 113, 113, 0.05);
+    }
+    
+    .form-input:valid:not(:placeholder-shown) {
+      border-color: rgba(74, 222, 128, 0.5);
+    }
+    
+    textarea.form-input {
+      resize: vertical;
+      min-height: 140px;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+    
+    .file-upload-wrapper {
+      position: relative;
+    }
+    
+    .file-upload-wrapper.drag-over {
+      background: rgba(255, 107, 53, 0.2);
+    }
+    
+    .file-upload-wrapper.drag-over .file-input-label {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: var(--accent-orange);
+      transform: scale(1.02);
+    }
+    
+    .file-input {
+      position: absolute;
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-lg);
+      padding: var(--spacing-2xl);
+      background: rgba(255, 107, 53, 0.08);
+      border: 2px dashed rgba(255, 107, 53, 0.4);
+      border-radius: 12px;
+      color: var(--accent-orange);
+      font-weight: 600;
+      font-size: var(--font-md);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 120px;
+      flex-direction: column;
+    }
+    
+    .file-input-label:hover {
+      background: rgba(255, 107, 53, 0.12);
+      border-color: rgba(255, 107, 53, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(255, 107, 53, 0.15);
+    }
+    
+    .file-upload-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 107, 53, 0.15);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+    
+    .file-input-label:hover .file-upload-icon {
+      background: rgba(255, 107, 53, 0.25);
+      transform: scale(1.1);
+    }
+    
+    .file-upload-icon svg {
+      stroke: var(--accent-orange);
+      width: 24px;
+      height: 24px;
+    }
+    
+    .file-upload-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-xs);
+      text-align: center;
+    }
+    
+    .file-name-text {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .file-size-hint {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    
+    .file-input-label.has-file {
+      background: rgba(74, 222, 128, 0.1);
+      border-color: rgba(74, 222, 128, 0.4);
+    }
+    
+    .file-input-label.has-file .file-upload-icon {
+      background: rgba(74, 222, 128, 0.2);
+    }
+    
+    .file-input-label.has-file .file-upload-icon svg {
+      stroke: var(--accent-green);
+    }
+    
+    .form-help-text {
+      font-size: var(--font-sm);
+      color: var(--text-muted);
+      margin-top: var(--spacing-xs);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-xs);
+    }
+    
+    .form-help-text svg {
+      margin-top: 2px;
+      flex-shrink: 0;
+      opacity: 0.6;
+      width: 14px;
+      height: 14px;
+    }
+    
+    .form-status {
+      margin-top: var(--spacing-md);
+    }
+    
+    .form-success {
+      padding: var(--spacing-md);
+      background: rgba(74, 222, 128, 0.15);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      border-radius: var(--radius-md);
+      color: var(--accent-green);
+      font-size: var(--font-md);
+    }
+    
+    .form-error {
+      padding: var(--spacing-md);
+      background: rgba(248, 113, 113, 0.15);
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: var(--radius-md);
+      color: var(--accent-red);
+      font-size: var(--font-md);
+    }
+    
+    .checkbox-group {
+      margin: var(--spacing-md) 0;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+      cursor: pointer;
+      font-size: var(--font-md);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .form-checkbox {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .checkbox-custom {
+      position: relative;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-input);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .checkbox-label:hover .checkbox-custom {
+      border-color: rgba(255, 107, 53, 0.5);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    
+    .form-checkbox:checked + .checkbox-custom {
+      background: var(--accent-orange);
+      border-color: var(--accent-orange);
+    }
+    
+    .form-checkbox:checked + .checkbox-custom::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: translate(-50%, -60%) rotate(45deg);
+      margin-left: -1px;
+    }
+    
+    .form-checkbox:focus + .checkbox-custom {
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+    }
+    
+    .checkbox-text {
+      flex: 1;
+      user-select: none;
+    }
+    
+    .policy-link {
+      color: var(--accent-orange);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    
+    .policy-link:hover {
+      color: var(--accent-orange-hover);
+      text-decoration: underline;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-2xl);
+      padding-top: var(--spacing-xl);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    @media (max-width: 640px) {
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+      
+      .form-actions button {
+        width: 100%;
+      }
+    }
+    
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg) var(--spacing-2xl);
+      font-size: var(--font-md);
+      font-weight: 600;
+      gap: var(--spacing-sm);
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent-orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg) var(--spacing-2xl);
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: var(--font-md);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: var(--spacing-sm);
+      text-decoration: none;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary:active {
+      transform: translateY(0);
+    }
+    
+    .loading-state {
+      text-align: center;
+      padding: var(--spacing-3xl);
+      color: var(--text-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .apply-page {
+        padding: var(--spacing-2xl) var(--spacing-lg);
+      }
+      
+      .apply-header h1 {
+        font-size: 2rem;
+      }
+      
+      .apply-form-section {
+        position: static;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Background Video (Hidden) -->
+    <div class="background-video-container" style="display: none;">
+      <video class="background-video" id="video1" muted playsinline autoplay preload="auto"></video>
+      <video class="background-video background-video-secondary" id="video2" muted playsinline preload="auto"></video>
+      <div class="video-shader-overlay"></div>
+      <div class="video-ornament-overlay">
+        <svg viewBox="0 0 1920 1080" class="ornament-svg" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="ornamentPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+              <circle cx="100" cy="100" r="2" fill="#FF6B35" opacity="0.3"></circle>
+              <path d="M 50 100 Q 100 50 150 100 T 250 100" stroke="#FF6B35" stroke-width="1" fill="none" opacity="0.2"></path>
+            </pattern>
+            <linearGradient id="ornamentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF6B35" stop-opacity="0.1"></stop>
+              <stop offset="50%" stop-color="#FF6B35" stop-opacity="0.05"></stop>
+              <stop offset="100%" stop-color="#FF6B35" stop-opacity="0.1"></stop>
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#ornamentPattern)" opacity="0.4"></rect>
+          <path d="M 0 540 Q 480 400 960 540 T 1920 540" stroke="url(#ornamentGrad)" stroke-width="2" fill="none" opacity="0.3"></path>
+          <path d="M 0 270 Q 480 130 960 270 T 1920 270" stroke="url(#ornamentGrad)" stroke-width="1.5" fill="none" opacity="0.2"></path>
+          <path d="M 0 810 Q 480 670 960 810 T 1920 810" stroke="url(#ornamentGrad)" stroke-width="1.5" fill="none" opacity="0.2"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Video Footer -->
+    <div class="video-footer">
+      <div class="video-social-links">
+        <a href="https://discord.gg/7uU4nHSFwD" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"></path>
+          </svg>
+        </a>
+        <a href="https://x.com/vilostudios" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" id="x-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@vilostudiosyt" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/company/vilostudios" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="video-copyright">© VILOSTUDIOS</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+      <div class="nav-logo">
+        <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit;">
+          <img src="src/Logo/BrandLogo.png" alt="VILOSTUDIOS" class="logo-img">
+          <span class="logo-text">VILOSTUDIOS</span>
+        </a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html#home" class="nav-link" data-section="home">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">Home</span>
+        </a></li>
+        <li><a href="index.html#about" class="nav-link" data-section="about">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 5C4 3.89543 4.89543 3 6 3H10.5858C10.851 3 11.1054 3.10536 11.2929 3.29289L13.7071 5.70711C13.8946 5.89464 14.149 6 14.4142 6H18C19.1046 6 20 6.89543 20 8V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 13H16M8 17H16M8 9H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">About</span>
+        </a></li>
+        <li><a href="index.html#portfolio" class="nav-link" data-section="portfolio">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 16V8C20.9996 7.64928 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64928 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3.27002 6.96L12 12.01L20.73 6.96" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">Portfolio</span>
+        </a></li>
+        <li><a href="career.html" class="nav-link" data-section="career">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 21V17C16 15.8954 15.1046 15 14 15H10C8.89543 15 8 15.8954 8 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">Career</span>
+        </a></li>
+      </ul>
+      <div class="nav-footer">
+        <div id="user-profile-nav" class="user-profile-nav" style="display: none;">
+          <a href="dashboard/employee/index.html" class="nav-user-button" id="nav-user-button-link">
+            <div class="nav-user-avatar" id="nav-user-avatar">U</div>
+            <span class="nav-user-name" id="nav-user-name">User</span>
+          </a>
+        </div>
+        <a href="login.html" class="nav-login-button" id="nav-login-button" title="Recruiters Login">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 5 L12 10 L7 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M12 10 L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M15 3 L17 3 C17.5523 3 18 3.44772 18 4 L18 16 C18 16.5523 17.5523 17 17 17 L15 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </a>
+        <div class="language-switcher">
+          <button class="lang-button active" data-lang="en" aria-label="Switch to EN">EN</button>
+          <button class="lang-button" data-lang="ja" aria-label="Switch to JP">JP</button>
+          <button class="lang-button" data-lang="zh" aria-label="Switch to ZH">ZH</button>
+          <button class="lang-button" data-lang="ko" aria-label="Switch to KO">KO</button>
+        </div>
+      </div>
+    </nav>
+
+  <div class="apply-page" style="padding-top: 100px;">
+    <div class="apply-header">
+      <a href="career.html" class="apply-back-link">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span data-i18n="apply.backToCareer">Back to Career Page</span>
+      </a>
+      <div id="position-header-content">
+        <div class="loading-state">Loading position details...</div>
+      </div>
+    </div>
+    
+    <div class="apply-content">
+      <div class="position-details" id="position-details">
+        <div class="loading-state">Loading...</div>
+      </div>
+      
+      <div class="apply-form-section">
+        <div class="apply-form-header">
+          <h2 data-i18n="apply.title">Apply for this Position</h2>
+          <p class="apply-form-subtitle">Fill out the form below to submit your application. We'll review it and get back to you soon.</p>
+        </div>
+        
+        <form id="apply-form" class="apply-form">
+          <input type="hidden" id="apply-position-id">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="apply-department">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Department *
+              </label>
+              <input type="text" id="apply-department" class="form-input" required placeholder="e.g., Animation, Character Design">
+            </div>
+            
+            <div class="form-group">
+              <label for="apply-role">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 21V17C16 15.8954 15.1046 15 14 15H10C8.89543 15 8 15.8954 8 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Position/Role *
+              </label>
+              <input type="text" id="apply-role" class="form-input" required placeholder="e.g., Animation Director, Key Animator">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="apply-name">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Full Name *
+              </label>
+              <input type="text" id="apply-name" class="form-input" required placeholder="John Doe">
+            </div>
+            
+            <div class="form-group">
+              <label for="apply-email">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Email Address *
+              </label>
+              <input type="email" id="apply-email" class="form-input" required placeholder="your.email@example.com">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="apply-portfolio">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Portfolio URL *
+            </label>
+            <input type="url" id="apply-portfolio" class="form-input" required placeholder="https://yourportfolio.com">
+            <small class="form-help-text">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Link to your portfolio, ArtStation, or personal website
+            </small>
+          </div>
+          
+          <div class="form-group">
+            <label for="apply-cv">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              CV/Resume *
+            </label>
+            <div class="file-upload-wrapper" id="file-upload-area">
+              <input type="file" id="apply-cv" class="form-input file-input" accept=".pdf,.doc,.docx" required>
+              <label for="apply-cv" class="file-input-label">
+                <div class="file-upload-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="17 8 12 3 7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="file-upload-text">
+                  <span id="file-name" class="file-name-text">Click to upload or drag and drop</span>
+                  <span class="file-size-hint">PDF, DOC, DOCX (Max 10MB)</span>
+                </div>
+              </label>
+            </div>
+            <small class="form-help-text">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Accepted formats: PDF, DOC, DOCX (Max 10MB)
+            </small>
+          </div>
+          
+          <div class="form-group">
+            <label for="apply-genre">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              What Genre of animations do you specialize in? <span class="optional-label">(Optional)</span>
+            </label>
+            <input type="text" id="apply-genre" class="form-input" placeholder="e.g., drama, comedy, music video, action">
+            <small class="form-help-text">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Examples: drama, comedy, music video, action, romance, sci-fi, fantasy, horror
+            </small>
+          </div>
+          
+          <div class="form-group">
+            <label for="apply-message">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Additional Message <span class="optional-label">(Optional)</span>
+            </label>
+            <textarea id="apply-message" class="form-input" rows="5" placeholder="Tell us why you're interested in this position, your relevant experience, or anything else you'd like us to know..."></textarea>
+            <small class="form-help-text">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              This is your chance to introduce yourself and stand out
+            </small>
+          </div>
+          
+          <div class="form-group">
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="apply-privacy" class="form-checkbox" required>
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-text">
+                  I agree to the <a href="resources.html#privacy-policy" target="_blank" class="policy-link">Privacy Policy</a> *
+                </span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="apply-terms" class="form-checkbox" required>
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-text">
+                  I agree to the <a href="resources.html#freelancer-terms" target="_blank" class="policy-link">Freelancer Terms Of Service</a> *
+                </span>
+              </label>
+            </div>
+          </div>
+          
+          <div id="apply-message-status" class="form-status"></div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Submit Application</span>
+            </button>
+            <a href="career.html" class="btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Cancel</span>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const positionId = urlParams.get('id');
+    const branch = urlParams.get('branch') || 'main';
+    const categoryName = urlParams.get('category') || '';
+    const employmentType = urlParams.get('employment') || '';
+    
+    // Load positions data
+    let allPositions = [];
+    
+    // Check if user is logged in
+    function isLoggedIn() {
+      try {
+        const stored = localStorage.getItem('vilostudios_user');
+        if (!stored) return false;
+        const userData = JSON.parse(stored);
+        return userData && userData.email;
+      } catch (e) {
+        return false;
+      }
+    }
+    
+    // Get example positions (for API bypass)
+    function getExamplePositions() {
+      const now = new Date();
+      const futureDate1 = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const futureDate2 = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
+      const futureDate3 = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+      
+      return [
+        {
+          id: 1,
+          role: 'Animation Director (作画監督 / Sakkan)',
+          branch: 'animation',
+          jobType: 'database',
+          employmentType: 'permanent',
+          pay: 'USD 80000 - 120000',
+          currency: 'USD',
+          scheduled_date: futureDate1.toISOString(),
+          start_date: new Date(futureDate1.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          end_date: null,
+          description: '<p>We are looking for an experienced Animation Director to lead our animation team on various anime projects. The ideal candidate will have strong leadership skills and extensive experience in 2D animation production.</p>',
+          requirements: '<ul><li>Minimum 5 years experience as Animation Director</li><li>Strong understanding of anime production pipeline</li><li>Excellent communication and leadership skills</li></ul>',
+          created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+          id: 2,
+          role: 'Key Animator (原画 / Genga)',
+          branch: 'animation',
+          jobType: 'database',
+          employmentType: 'contract',
+          pay: 'EUR 50000 - 80000',
+          currency: 'EUR',
+          scheduled_date: futureDate2.toISOString(),
+          start_date: new Date(futureDate2.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          end_date: new Date(futureDate2.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+          description: '<p>Join our database of talented Key Animators. We will contact you when we have projects that match your skills and availability.</p>',
+          requirements: '<ul><li>3+ years experience in key animation</li><li>Strong drawing and animation skills</li><li>Portfolio demonstrating anime-style animation</li></ul>',
+          created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+          id: 3,
+          role: 'Character Designer - Project: "The Adventure Quest"',
+          branch: 'character-design',
+          jobType: 'project',
+          employmentType: 'contract',
+          pay: 'JPY 7000000 - 9000000',
+          currency: 'JPY',
+          scheduled_date: futureDate3.toISOString(),
+          start_date: new Date(futureDate3.getTime() + 1 * 24 * 60 * 60 * 1000).toISOString(),
+          end_date: new Date(futureDate3.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+          description: '<p>Immediate opening for a Character Designer on our new fantasy adventure anime series. This is a project-specific position with a 12-month contract.</p>',
+          requirements: '<ul><li>Experience in character design for anime</li><li>Ability to work within established style guides</li><li>Strong portfolio in fantasy character design</li></ul>',
+          created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+          id: 4,
+          role: 'Production Coordinator',
+          branch: 'production',
+          jobType: 'database',
+          employmentType: 'permanent',
+          pay: null,
+          description: '<p>We\'re looking for an organized and proactive Production Coordinator to help manage our animation projects. You\'ll work with teams across different time zones, ensuring projects stay on track.</p>',
+          requirements: '<ul><li>Experience in animation or entertainment production</li><li>Excellent communication and organizational skills</li><li>Proficiency with project management tools</li><li>Ability to work with remote teams across time zones</li></ul>',
+          created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+        }
+      ];
+    }
+    
+    async function loadPositions() {
+      const apiBypass = localStorage.getItem('vilostudios_api_bypass') === 'true';
+      const loggedIn = isLoggedIn();
+      
+      // Use demo data if API bypass is on AND user is logged in
+      if (apiBypass && loggedIn) {
+        allPositions = getExamplePositions();
+        loadPositionDetails();
+        return;
+      }
+      
+      try {
+        const response = await fetch('api/positions/get.php');
+        const data = await response.json();
+        if (data.success) {
+          allPositions = data.positions || [];
+          loadPositionDetails();
+        } else {
+          showError('Failed to load position details');
+        }
+      } catch (error) {
+        console.error('Error loading positions:', error);
+        showError('Failed to load position details');
+      }
+    }
+    
+    function stripHtml(html) {
+      if (!html) return '';
+      const tmp = document.createElement('DIV');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    }
+    
+    function loadPositionDetails() {
+      if (!positionId) {
+        showError('No position ID provided');
+        return;
+      }
+      
+      const position = allPositions.find(p => p.id == positionId);
+      if (!position) {
+        showError('Position not found');
+        return;
+      }
+      
+      const descriptionPreview = stripHtml(position.description);
+      const requirementsText = stripHtml(position.requirements);
+      
+      // Set form fields (auto-fill from position)
+      document.getElementById('apply-position-id').value = positionId;
+      document.getElementById('apply-role').value = position.role || '';
+      document.getElementById('apply-department').value = categoryName || '';
+      
+      // Render header
+      const headerContent = document.getElementById('position-header-content');
+      headerContent.innerHTML = `
+        <div class="position-badges">
+          <span class="position-badge badge-department">${categoryName}</span>
+          <span class="position-badge badge-employment">${employmentType.charAt(0).toUpperCase() + employmentType.slice(1).replace(/-/g, ' ')}</span>
+        </div>
+        <h1>${position.role || 'Position'}</h1>
+        <p class="position-location">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Remote / Worldwide
+        </p>
+      `;
+      
+      // Render position details
+      const detailsContent = document.getElementById('position-details');
+      detailsContent.innerHTML = `
+        <div class="detail-section">
+          <h2>Description</h2>
+          <p>${descriptionPreview || 'No description available.'}</p>
+        </div>
+        ${requirementsText ? `
+        <div class="detail-section">
+          <h2>Requirements</h2>
+          <ul class="detail-requirements">
+            ${requirementsText.split('\n').filter(r => r.trim()).map(req => `<li>${req.trim()}</li>`).join('')}
+          </ul>
+        </div>
+        ` : ''}
+      `;
+    }
+    
+    function showError(message) {
+      const headerContent = document.getElementById('position-header-content');
+      headerContent.innerHTML = `<div class="loading-state" style="color: var(--accent-red);">${message}</div>`;
+    }
+    
+    // File upload handling
+    const fileInput = document.getElementById('apply-cv');
+    const fileName = document.getElementById('file-name');
+    const fileUploadArea = document.getElementById('file-upload-area');
+    const fileInputLabel = fileUploadArea.querySelector('.file-input-label');
+    
+    const updateFileDisplay = (file) => {
+      if (file) {
+        fileName.textContent = file.name;
+        fileInputLabel.classList.add('has-file');
+        const iconSvg = fileInputLabel.querySelector('.file-upload-icon svg');
+        if (iconSvg) {
+          iconSvg.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+        }
+      } else {
+        fileName.textContent = 'Click to upload or drag and drop';
+        fileInputLabel.classList.remove('has-file');
+        const iconSvg = fileInputLabel.querySelector('.file-upload-icon svg');
+        if (iconSvg) {
+          iconSvg.innerHTML = '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 8 12 3 7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+        }
+      }
+    };
+    
+    fileInput.addEventListener('change', function(e) {
+      updateFileDisplay(this.files && this.files[0] ? this.files[0] : null);
+    });
+    
+    // Drag and drop
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      fileUploadArea.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+      fileUploadArea.addEventListener(eventName, () => {
+        fileUploadArea.classList.add('drag-over');
+      }, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+      fileUploadArea.addEventListener(eventName, () => {
+        fileUploadArea.classList.remove('drag-over');
+      }, false);
+    });
+    
+    fileUploadArea.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        updateFileDisplay(files[0]);
+        fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }, false);
+    
+    // Form submission
+    const form = document.getElementById('apply-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await handleApplicationSubmit();
+    });
+    
+    async function handleApplicationSubmit() {
+      const positionId = document.getElementById('apply-position-id').value;
+      const positionRole = document.getElementById('apply-role').value.trim();
+      const department = document.getElementById('apply-department').value.trim();
+      const name = document.getElementById('apply-name').value.trim();
+      const email = document.getElementById('apply-email').value.trim();
+      const portfolio = document.getElementById('apply-portfolio').value.trim();
+      const cvFile = document.getElementById('apply-cv').files[0];
+      const genre = document.getElementById('apply-genre').value.trim();
+      const message = document.getElementById('apply-message').value.trim();
+      const statusDiv = document.getElementById('apply-message-status');
+      const submitBtn = form.querySelector('.btn-primary');
+      
+      const privacyChecked = document.getElementById('apply-privacy').checked;
+      const termsChecked = document.getElementById('apply-terms').checked;
+      
+      if (!name || !email || !portfolio || !cvFile || !positionRole || !department) {
+        statusDiv.innerHTML = '<div class="form-error">Please fill in all required fields</div>';
+        return;
+      }
+      
+      if (!privacyChecked || !termsChecked) {
+        statusDiv.innerHTML = '<div class="form-error">Please agree to the Privacy Policy and Freelancer Terms Of Service</div>';
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('position_id', positionId);
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('portfolio', portfolio);
+      formData.append('cv', cvFile);
+      formData.append('genre', genre);
+      formData.append('message', message);
+      formData.append('role', positionRole);
+      formData.append('department', department);
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Submitting...</span>';
+      statusDiv.innerHTML = '';
+      
+      try {
+        const response = await fetch('api/applications/apply.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          statusDiv.innerHTML = '<div class="form-success">Application submitted successfully! We will review your application and get back to you soon.</div>';
+          form.reset();
+          updateFileDisplay(null);
+          setTimeout(() => {
+            window.location.href = 'career.html';
+          }, 2000);
+        } else {
+          statusDiv.innerHTML = `<div class="form-error">Error: ${result.message || 'Failed to submit application'}</div>`;
+        }
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        statusDiv.innerHTML = '<div class="form-error">An error occurred. Please try again later.</div>';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Submit Application</span>';
+      }
+    }
+    
+    // Load on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadPositions);
+    } else {
+      loadPositions();
+    }
+  </script>
+  
+  <script src="js/translations.js"></script>
+  <script src="js/language.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/video.js"></script>
+  <script>
+    // Check login state for profile display
+    function checkLoginState() {
+      try {
+        const stored = localStorage.getItem('vilostudios_user');
+        const userProfileNav = document.getElementById('user-profile-nav');
+        const navLoginButton = document.getElementById('nav-login-button');
+        const navUserAvatar = document.getElementById('nav-user-avatar');
+        const navUserName = document.getElementById('nav-user-name');
+        const navUserButtonLink = document.getElementById('nav-user-button-link');
+        
+        if (!stored) {
+          if (userProfileNav) userProfileNav.style.display = 'none';
+          if (navLoginButton) navLoginButton.style.display = 'flex';
+          return;
+        }
+        
+        const userData = JSON.parse(stored);
+        if (userData && userData.email) {
+          // User is logged in - show profile
+          if (userProfileNav) userProfileNav.style.display = 'flex';
+          if (navLoginButton) navLoginButton.style.display = 'none';
+          
+          // Set user name (first name only)
+          if (navUserName && userData.name) {
+            const firstName = userData.name.split(' ')[0];
+            navUserName.textContent = firstName;
+          }
+          
+          // Set profile picture
+          if (navUserAvatar) {
+            const profilePic = localStorage.getItem('vilostudios_profile_pic');
+            if (profilePic) {
+              navUserAvatar.style.backgroundImage = `url(${profilePic})`;
+              navUserAvatar.style.backgroundSize = 'cover';
+              navUserAvatar.style.backgroundPosition = 'center';
+            } else {
+              navUserAvatar.style.backgroundImage = 'none';
+              if (userData.name) {
+                navUserAvatar.textContent = userData.name.charAt(0).toUpperCase();
+              }
+            }
+          }
+        } else {
+          if (userProfileNav) userProfileNav.style.display = 'none';
+          if (navLoginButton) navLoginButton.style.display = 'flex';
+        }
+      } catch (e) {
+        console.error('Error checking login state:', e);
+      }
+    }
+    
+    // Initialize
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        checkLoginState();
+        // Initialize language
+        if (typeof window.LanguageManager !== 'undefined') {
+          window.LanguageManager.currentLanguage = window.LanguageManager.detectLanguage();
+          window.LanguageManager.setLanguage(window.LanguageManager.currentLanguage);
+        }
+      });
+    } else {
+      checkLoginState();
+      // Initialize language
+      if (typeof window.LanguageManager !== 'undefined') {
+        window.LanguageManager.currentLanguage = window.LanguageManager.detectLanguage();
+        window.LanguageManager.setLanguage(window.LanguageManager.currentLanguage);
+      }
+    }
+    
+    // Listen for storage changes (cross-tab login state sync)
+    window.addEventListener('storage', checkLoginState);
+    
+    // Initialize Language Manager
+    if (window.LanguageManager) {
+      const currentLang = window.LanguageManager.detectLanguage();
+      window.LanguageManager.setLanguage(currentLang);
+      
+      // Language button handlers
+      document.querySelectorAll('.lang-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.dataset.lang;
+          window.LanguageManager.setLanguage(lang);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+

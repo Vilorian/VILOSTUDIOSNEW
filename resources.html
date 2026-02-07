@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VILOSTUDIOS - Privacy Policy and Terms of Service">
+  <meta name="keywords" content="privacy policy, terms of service, freelancer terms, legal">
+  <title>Resources - VILOSTUDIOS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #252525;
+      --bg-sidebar: rgba(26, 26, 26, 0.85);
+      --bg-content: rgba(20, 20, 20, 0.7);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.8);
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --accent-orange: #FF6B35;
+      --accent-orange-hover: #FF8C42;
+      --border-default: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 107, 53, 0.3);
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 0.75rem;
+      --spacing-lg: 1rem;
+      --spacing-xl: 1.5rem;
+      --spacing-2xl: 2rem;
+      --spacing-3xl: 3rem;
+    }
+    
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .app {
+      background: var(--bg-primary);
+    }
+
+    .resources-container {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 80px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .resources-sidebar-spacer {
+      width: 280px;
+      min-width: 280px;
+      flex-shrink: 0;
+    }
+    
+    .resources-content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+    
+    
+    /* Left Sidebar */
+    .resources-sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--bg-sidebar);
+      backdrop-filter: blur(40px) saturate(180%);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: var(--spacing-2xl) var(--spacing-xl);
+      position: fixed;
+      top: 80px;
+      left: 0;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .sidebar-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-2xl);
+      color: rgba(255, 255, 255, 0.95);
+      padding-bottom: var(--spacing-lg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-2xl);
+    }
+    
+    .style-selector {
+      margin-top: var(--spacing-2xl);
+      padding-top: var(--spacing-2xl);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .style-selector-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: var(--spacing-md);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .style-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .style-option {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md) var(--spacing-lg);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.875rem;
+      font-weight: 500;
+      width: 100%;
+      text-align: left;
+    }
+    
+    .style-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .style-option.active {
+      background: rgba(255, 107, 53, 0.15);
+      border-color: rgba(255, 107, 53, 0.4);
+      color: var(--accent-orange);
+    }
+
+    .style-preview {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+    }
+    
+    .style-preview-grey {
+      background: #1a1a1a;
+    }
+    
+    .style-preview-blue {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+    }
+    
+    .style-preview-white {
+      background: #ffffff;
+    }
+    
+    .style-label {
+      flex: 1;
+    }
+    
+    .sidebar-nav-item {
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    
+    .sidebar-nav-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .sidebar-nav-item.active {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: rgba(255, 107, 53, 0.4);
+      color: var(--accent-orange);
+      font-weight: 600;
+    }
+    
+    /* Right Content Area */
+    .resources-content {
+      flex: 1;
+      padding: var(--spacing-3xl) var(--spacing-3xl);
+      max-width: calc(100% - 280px);
+      overflow-y: auto;
+      position: relative;
+      z-index: 2;
+      background: var(--bg-secondary);
+    }
+    
+    .no-policy-selected {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.125rem;
+    }
+    
+    .policy-section {
+      background: var(--bg-content);
+      backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: var(--spacing-3xl);
+      scroll-margin-top: 120px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      display: none;
+    }
+    
+    /* Background Style Variants */
+    .resources-content.style-grey .policy-section {
+      background: var(--bg-content);
+      color: rgba(255, 255, 255, 0.85);
+    }
+    
+    .resources-content.style-blue .policy-section {
+      background: linear-gradient(135deg, rgba(30, 58, 95, 0.8) 0%, rgba(45, 90, 135, 0.8) 100%);
+      backdrop-filter: blur(40px) saturate(180%);
+      border-color: rgba(96, 165, 250, 0.3);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .resources-content.style-blue .policy-section h2,
+    .resources-content.style-blue .policy-section h3,
+    .resources-content.style-blue .policy-section h4 {
+      color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .resources-content.style-blue .policy-section p,
+    .resources-content.style-blue .policy-section li {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    
+    .resources-content.style-white .policy-section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(40px) saturate(180%);
+      border-color: rgba(0, 0, 0, 0.1);
+      color: #1a1a1a;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .resources-content.style-white .policy-section h2,
+    .resources-content.style-white .policy-section h3,
+    .resources-content.style-white .policy-section h4 {
+      color: #000000;
+    }
+    
+    .resources-content.style-white .policy-section p,
+    .resources-content.style-white .policy-section li {
+      color: #2a2a2a;
+    }
+    
+    .resources-content.style-white .policy-section strong {
+      color: #000000;
+    }
+    
+    .resources-content.style-white .policy-section .policy-meta {
+      color: #666666;
+    }
+    
+    .resources-content.style-white .policy-section .policy-section-header {
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .policy-section.active {
+      display: block;
+    }
+    
+    .policy-section:first-child.active {
+      display: block;
+    }
+    
+    .policy-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .policy-section h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: var(--spacing-2xl);
+      margin-bottom: var(--spacing-md);
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    
+    .policy-section h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-top: var(--spacing-xl);
+      margin-bottom: var(--spacing-sm);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    
+    .policy-section p {
+      font-size: 0.9375rem;
+      line-height: 1.9;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .policy-section ul, .policy-section ol {
+      margin: var(--spacing-lg) 0;
+      padding-left: var(--spacing-2xl);
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.9;
+    }
+    
+    .policy-section li {
+      margin-bottom: var(--spacing-md);
+      font-size: 0.9375rem;
+    }
+    
+    .policy-section strong {
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
+    }
+    
+    .policy-meta {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: var(--spacing-2xl);
+      font-style: italic;
+    }
+    
+    .policy-section-header {
+      margin-bottom: var(--spacing-2xl);
+      padding-bottom: var(--spacing-xl);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    
+    /* Scrollbar for sidebar */
+    .resources-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .resources-sidebar::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+    
+    .resources-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 107, 53, 0.3);
+      border-radius: 3px;
+      border: 1px solid rgba(255, 107, 53, 0.15);
+    }
+    
+    .resources-sidebar::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 107, 53, 0.5);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .resources-container {
+        flex-direction: column;
+      }
+
+      .resources-sidebar-spacer {
+        display: none;
+      }
+
+      .resources-sidebar {
+        width: 100%;
+        min-width: 100%;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        height: auto;
+        max-height: calc(100vh - 80px);
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        z-index: 100;
+      }
+      
+      .resources-content {
+        max-width: 100%;
+        padding: var(--spacing-2xl) var(--spacing-xl);
+        margin-top: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .resources-content {
+        padding: var(--spacing-xl) var(--spacing-lg);
+      }
+      
+      .policy-section {
+        padding: var(--spacing-2xl) var(--spacing-xl);
+      }
+      
+      .policy-section h2 {
+        font-size: 1.75rem;
+      }
+      
+      .sidebar-title {
+        font-size: 1.125rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Background Video -->
+    <div class="background-video-container">
+      <video class="background-video" id="video1" muted playsinline autoplay preload="auto"></video>
+      <video class="background-video background-video-secondary" id="video2" muted playsinline preload="auto"></video>
+      <div class="video-shader-overlay"></div>
+      <div class="video-ornament-overlay">
+        <svg viewBox="0 0 1920 1080" class="ornament-svg" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="ornamentPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+              <circle cx="100" cy="100" r="2" fill="#FF6B35" opacity="0.3"></circle>
+              <path d="M 50 100 Q 100 50 150 100 T 250 100" stroke="#FF6B35" stroke-width="1" fill="none" opacity="0.2"></path>
+            </pattern>
+            <linearGradient id="ornamentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF6B35" stop-opacity="0.1"></stop>
+              <stop offset="50%" stop-color="#FF6B35" stop-opacity="0.05"></stop>
+              <stop offset="100%" stop-color="#FF6B35" stop-opacity="0.1"></stop>
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#ornamentPattern)" opacity="0.4"></rect>
+          <path d="M 0 540 Q 480 400 960 540 T 1920 540" stroke="url(#ornamentGrad)" stroke-width="2" fill="none" opacity="0.3"></path>
+          <path d="M 0 270 Q 480 130 960 270 T 1920 270" stroke="url(#ornamentGrad)" stroke-width="1.5" fill="none" opacity="0.2"></path>
+          <path d="M 0 810 Q 480 670 960 810 T 1920 810" stroke="url(#ornamentGrad)" stroke-width="1.5" fill="none" opacity="0.2"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Video Footer -->
+    <div class="video-footer">
+      <div class="video-social-links">
+        <a href="https://discord.gg/7uU4nHSFwD" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"></path>
+          </svg>
+        </a>
+        <a href="https://x.com/vilostudios" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" id="x-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@vilostudiosyt" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/company/vilostudios" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="video-copyright">© VILOSTUDIOS</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+      <div class="nav-logo">
+        <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit;">
+          <img src="src/Logo/BrandLogo.png" alt="VILOSTUDIOS" class="logo-img">
+          <span class="logo-text">VILOSTUDIOS</span>
+        </a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html#home" class="nav-link" data-section="home">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">Home</span>
+        </a></li>
+        <li><a href="index.html#about" class="nav-link" data-section="about">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 5C4 3.89543 4.89543 3 6 3H10.5858C10.851 3 11.1054 3.10536 11.2929 3.29289L13.7071 5.70711C13.8946 5.89464 14.149 6 14.4142 6H18C19.1046 6 20 6.89543 20 8V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 13H16M8 17H16M8 9H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">About</span>
+        </a></li>
+        <li><a href="index.html#portfolio" class="nav-link" data-section="portfolio">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 16V8C20.9996 7.64928 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64928 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3.27002 6.96L12 12.01L20.73 6.96" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 22.08V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">Portfolio</span>
+        </a></li>
+        <li><a href="career.html" class="nav-link" data-section="career">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 21V17C16 15.8954 15.1046 15 14 15H10C8.89543 15 8 15.8954 8 17V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="nav-text">Career</span>
+        </a></li>
+      </ul>
+      <div class="nav-footer">
+        <div id="user-profile-nav" class="user-profile-nav" style="display: none;">
+          <a href="dashboard/employee/index.html" class="nav-user-button" id="nav-user-button-link">
+            <div class="nav-user-avatar" id="nav-user-avatar">U</div>
+            <span class="nav-user-name" id="nav-user-name">User</span>
+          </a>
+        </div>
+        <a href="login.html" class="nav-login-button" id="nav-login-button" title="Recruiters Login">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 5 L12 10 L7 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M12 10 L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M15 3 L17 3 C17.5523 3 18 3.44772 18 4 L18 16 C18 16.5523 17.5523 17 17 17 L15 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </a>
+        <div class="language-switcher">
+          <button class="lang-button active" data-lang="en" aria-label="Switch to EN">EN</button>
+          <button class="lang-button" data-lang="ja" aria-label="Switch to JP">JP</button>
+          <button class="lang-button" data-lang="zh" aria-label="Switch to ZH">ZH</button>
+          <button class="lang-button" data-lang="ko" aria-label="Switch to KO">KO</button>
+        </div>
+      </div>
+    </nav>
+
+        <div class="resources-container">
+      <!-- Left Sidebar Spacer -->
+      <div class="resources-sidebar-spacer"></div>
+      
+      <!-- Left Sidebar -->
+            <aside class="resources-sidebar">
+        <h2 class="sidebar-title" data-i18n="resources.title">Policies</h2>
+        <nav class="sidebar-nav">
+          <a href="#privacy-policy" class="sidebar-nav-item" data-policy="privacy-policy" data-i18n="resources.privacyPolicy">Privacy Policy</a>
+          <a href="#freelancer-terms" class="sidebar-nav-item" data-policy="freelancer-terms" data-i18n="resources.freelancerTerms">Freelancer Terms of Service</a>
+              </nav>
+        
+        <div class="style-selector">
+          <h3 class="style-selector-title">Content Style</h3>
+          <div class="style-options">
+            <button class="style-option" data-style="grey" title="Grey Background">
+              <span class="style-preview style-preview-grey"></span>
+              <span class="style-label">Grey</span>
+            </button>
+            <button class="style-option" data-style="blue" title="Blue Background">
+              <span class="style-preview style-preview-blue"></span>
+              <span class="style-label">Blue</span>
+            </button>
+            <button class="style-option" data-style="white" title="White Background">
+              <span class="style-preview style-preview-white"></span>
+              <span class="style-label">White</span>
+            </button>
+                </div>
+              </div>
+      </aside>
+
+      <!-- Right Content Area -->
+      <main class="resources-content">
+        <!-- Privacy Policy Section -->
+        <section id="privacy-policy" class="policy-section" data-policy-content="privacy">
+          <div class="policy-section-header">
+            <h2 data-i18n="policy.privacy.title">Privacy Policy</h2>
+            <p class="policy-meta" data-i18n="policy.privacy.lastUpdated">Last Updated: January 15, 2025</p>
+            </div>
+          
+          <p data-i18n="policy.privacy.intro">This Privacy Policy describes how VILOSTUDIOS ("we," "us," or "our") collects, uses, discloses, and protects your personal information when you use our website, apply for positions, or interact with our services.</p>
+          
+          <h3 data-i18n="policy.privacy.section1.title">1. Information We Collect</h3>
+          <h4 data-i18n="policy.privacy.section1.subsection1.title">1.1 Information You Provide</h4>
+          <p data-i18n="policy.privacy.section1.subsection1.intro">We collect information that you voluntarily provide to us, including:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section1.subsection1.item1.label">Application Information:</strong> <span data-i18n="policy.privacy.section1.subsection1.item1.text">Name, email address, phone number, portfolio links, CV/resume, cover letters, genre specializations, and any additional information you provide during the application process</span></li>
+            <li><strong data-i18n="policy.privacy.section1.subsection1.item2.label">Contact Information:</strong> <span data-i18n="policy.privacy.section1.subsection1.item2.text">Information provided when you contact us through our website, email, or other communication channels</span></li>
+            <li><strong data-i18n="policy.privacy.section1.subsection1.item3.label">Account Information:</strong> <span data-i18n="policy.privacy.section1.subsection1.item3.text">If you create an account or log in, we collect your login credentials and profile information</span></li>
+          </ul>
+          
+          <h4 data-i18n="policy.privacy.section1.subsection2.title">1.2 Automatically Collected Information</h4>
+          <p data-i18n="policy.privacy.section1.subsection2.intro">When you visit our website, we automatically collect certain information, including:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section1.subsection2.item1.label">Usage Data:</strong> <span data-i18n="policy.privacy.section1.subsection2.item1.text">Pages visited, time spent on pages, click patterns, and navigation paths</span></li>
+            <li><strong data-i18n="policy.privacy.section1.subsection2.item2.label">Device Information:</strong> <span data-i18n="policy.privacy.section1.subsection2.item2.text">IP address, browser type and version, operating system, device type, and screen resolution</span></li>
+            <li><strong data-i18n="policy.privacy.section1.subsection2.item3.label">Cookies and Tracking Technologies:</strong> <span data-i18n="policy.privacy.section1.subsection2.item3.text">We use cookies and similar tracking technologies to enhance your experience and analyze website traffic</span></li>
+          </ul>
+
+          <h3 data-i18n="policy.privacy.section2.title">2. How We Use Your Information</h3>
+          <p data-i18n="policy.privacy.section2.intro">We use the information we collect for the following purposes:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section2.item1.label">Application Processing:</strong> <span data-i18n="policy.privacy.section2.item1.text">To review, evaluate, and process job applications and assess candidate qualifications</span></li>
+            <li><strong data-i18n="policy.privacy.section2.item2.label">Communication:</strong> <span data-i18n="policy.privacy.section2.item2.text">To communicate with you about applications, opportunities, updates, and respond to your inquiries</span></li>
+            <li><strong data-i18n="policy.privacy.section2.item3.label">Service Improvement:</strong> <span data-i18n="policy.privacy.section2.item3.text">To analyze website usage, improve our services, and enhance user experience</span></li>
+            <li><strong data-i18n="policy.privacy.section2.item4.label">Legal Compliance:</strong> <span data-i18n="policy.privacy.section2.item4.text">To comply with applicable laws, regulations, and legal processes</span></li>
+            <li><strong data-i18n="policy.privacy.section2.item5.label">Security:</strong> <span data-i18n="policy.privacy.section2.item5.text">To protect our website, services, and users from fraud, abuse, and security threats</span></li>
+            <li><strong data-i18n="policy.privacy.section2.item6.label">Business Operations:</strong> <span data-i18n="policy.privacy.section2.item6.text">To manage our business operations, including talent database management and recruitment processes</span></li>
+          </ul>
+
+          <h3 data-i18n="policy.privacy.section3.title">3. Information Sharing and Disclosure</h3>
+          <p data-i18n="policy.privacy.section3.intro">We do not sell your personal information. We may share your information in the following circumstances:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section3.item1.label">Internal Use:</strong> <span data-i18n="policy.privacy.section3.item1.text">With authorized VILOSTUDIOS personnel involved in recruitment and hiring decisions</span></li>
+            <li><strong data-i18n="policy.privacy.section3.item2.label">Service Providers:</strong> <span data-i18n="policy.privacy.section3.item2.text">With third-party service providers who assist us in operating our website and conducting business operations (e.g., hosting, analytics, email services)</span></li>
+            <li><strong data-i18n="policy.privacy.section3.item3.label">Legal Requirements:</strong> <span data-i18n="policy.privacy.section3.item3.text">When required by law, court order, or government regulation, or to protect our rights and safety</span></li>
+            <li><strong data-i18n="policy.privacy.section3.item4.label">Business Transfers:</strong> <span data-i18n="policy.privacy.section3.item4.text">In connection with a merger, acquisition, or sale of assets, where your information may be transferred as part of the transaction</span></li>
+          </ul>
+
+          <h3 data-i18n="policy.privacy.section4.title">4. Data Protection and Security</h3>
+          <p data-i18n="policy.privacy.section4.intro">We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
+          <ul>
+            <li data-i18n="policy.privacy.section4.item1">Encryption of data in transit and at rest</li>
+            <li data-i18n="policy.privacy.section4.item2">Secure server infrastructure and access controls</li>
+            <li data-i18n="policy.privacy.section4.item3">Regular security assessments and updates</li>
+            <li data-i18n="policy.privacy.section4.item4">Limited access to personal information on a need-to-know basis</li>
+          </ul>
+          <p data-i18n="policy.privacy.section4.note">However, no method of transmission over the internet or electronic storage is 100% secure. While we strive to protect your information, we cannot guarantee absolute security.</p>
+
+          <h3 data-i18n="policy.privacy.section5.title">5. Data Retention</h3>
+          <p data-i18n="policy.privacy.section5.text">We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. Application data may be retained for recruitment purposes even after a position has been filled, unless you request deletion.</p>
+
+          <h3 data-i18n="policy.privacy.section6.title">6. Your Rights and Choices</h3>
+          <p data-i18n="policy.privacy.section6.intro">Depending on your location, you may have certain rights regarding your personal information, including:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section6.item1.label">Access:</strong> <span data-i18n="policy.privacy.section6.item1.text">Request access to the personal information we hold about you</span></li>
+            <li><strong data-i18n="policy.privacy.section6.item2.label">Correction:</strong> <span data-i18n="policy.privacy.section6.item2.text">Request correction of inaccurate or incomplete information</span></li>
+            <li><strong data-i18n="policy.privacy.section6.item3.label">Deletion:</strong> <span data-i18n="policy.privacy.section6.item3.text">Request deletion of your personal information, subject to legal and operational requirements</span></li>
+            <li><strong data-i18n="policy.privacy.section6.item4.label">Objection:</strong> <span data-i18n="policy.privacy.section6.item4.text">Object to certain processing activities</span></li>
+            <li><strong data-i18n="policy.privacy.section6.item5.label">Data Portability:</strong> <span data-i18n="policy.privacy.section6.item5.text">Request a copy of your data in a structured, machine-readable format</span></li>
+            <li><strong data-i18n="policy.privacy.section6.item6.label">Withdraw Consent:</strong> <span data-i18n="policy.privacy.section6.item6.text">Withdraw consent where processing is based on consent</span></li>
+          </ul>
+          <p data-i18n="policy.privacy.section6.contact">To exercise these rights, please contact us using the information provided in the "Contact Us" section below.</p>
+
+          <h3 data-i18n="policy.privacy.section7.title">7. Cookies and Tracking Technologies</h3>
+          <p data-i18n="policy.privacy.section7.intro">We use cookies and similar tracking technologies to collect and store information about your preferences and activities on our website. You can control cookie preferences through your browser settings. However, disabling cookies may affect the functionality of our website.</p>
+          <p data-i18n="policy.privacy.section7.types">Types of cookies we use:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section7.item1.label">Essential Cookies:</strong> <span data-i18n="policy.privacy.section7.item1.text">Required for the website to function properly</span></li>
+            <li><strong data-i18n="policy.privacy.section7.item2.label">Analytics Cookies:</strong> <span data-i18n="policy.privacy.section7.item2.text">Help us understand how visitors interact with our website</span></li>
+            <li><strong data-i18n="policy.privacy.section7.item3.label">Preference Cookies:</strong> <span data-i18n="policy.privacy.section7.item3.text">Remember your preferences and settings</span></li>
+          </ul>
+
+          <h3 data-i18n="policy.privacy.section8.title">8. Third-Party Links</h3>
+          <p data-i18n="policy.privacy.section8.text">Our website may contain links to third-party websites, services, or applications. We are not responsible for the privacy practices or content of these third parties. We encourage you to review the privacy policies of any third-party sites you visit.</p>
+
+          <h3 data-i18n="policy.privacy.section9.title">9. Children's Privacy</h3>
+          <p data-i18n="policy.privacy.section9.text">Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that we have collected information from a child, we will take steps to delete such information promptly.</p>
+
+          <h3 data-i18n="policy.privacy.section10.title">10. International Data Transfers</h3>
+          <p data-i18n="policy.privacy.section10.text">Your information may be transferred to and processed in countries other than your country of residence. These countries may have data protection laws that differ from those in your country. By using our services, you consent to the transfer of your information to these countries.</p>
+
+          <h3 data-i18n="policy.privacy.section11.title">11. Changes to This Privacy Policy</h3>
+          <p data-i18n="policy.privacy.section11.text">We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the updated policy on this page and updating the "Last Updated" date. We encourage you to review this Privacy Policy periodically.</p>
+
+          <h3 data-i18n="policy.privacy.section12.title">12. Contact Us</h3>
+          <p data-i18n="policy.privacy.section12.intro">If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+          <ul>
+            <li><strong data-i18n="policy.privacy.section12.item1.label">Email:</strong> <span data-i18n="policy.privacy.section12.item1.text">Through our official communication channels</span></li>
+            <li><strong data-i18n="policy.privacy.section12.item2.label">Website:</strong> <span data-i18n="policy.privacy.section12.item2.text">Visit our website for contact information</span></li>
+            <li><strong data-i18n="policy.privacy.section12.item3.label">Address:</strong> <span data-i18n="policy.privacy.section12.item3.text">VILOSTUDIOS, Dubai, United Arab Emirates</span></li>
+          </ul>
+          <p data-i18n="policy.privacy.section12.response">We will respond to your inquiries in a timely manner and in accordance with applicable data protection laws.</p>
+        </section>
+
+        <!-- Freelancer Terms of Service Section -->
+        <section id="freelancer-terms" class="policy-section" data-policy-content="freelancer">
+          <div class="policy-section-header">
+            <h2 data-i18n="policy.freelancer.title">Vilostudios – Freelancer Terms of Service (TOS)</h2>
+            <p class="policy-meta" data-i18n="policy.freelancer.lastUpdated">Last Updated: January 15, 2025</p>
+          </div>
+          
+          <p data-i18n="policy.freelancer.intro1">These Terms of Service ("Terms") govern the relationship between Vilostudios ("Vilostudios," "the Studio," "we," "us") and any independent contractor, freelancer, or contributor ("Freelancer," "you") who applies to, collaborates with, or performs services for the Studio.</p>
+          
+          <p data-i18n="policy.freelancer.intro2">Vilostudios operates as a Multi-Purpose Studio (MPS) providing services across, but not limited to:<br>
+          Animation (Hybrid, 2D, 3D), Music, Sound Design, Voice Acting, Storyboarding, and Writing.</p>
+          
+          <p data-i18n="policy.freelancer.intro3">By applying to Vilostudios, accepting assignments, or contributing work in any capacity, you acknowledge and agree to these Terms.</p>
+
+          <h3 data-i18n="policy.freelancer.section1.title">1. Independent Contractor Status</h3>
+          <p data-i18n="policy.freelancer.section1.text1">All freelancers engaged by Vilostudios act strictly as independent contractors. Nothing in these Terms creates an employment relationship, partnership, joint venture, or agency relationship.</p>
+          <p data-i18n="policy.freelancer.section1.text2">Freelancers are solely responsible for their own taxes, insurance, equipment, and legal obligations unless otherwise agreed in writing.</p>
+
+          <h3 data-i18n="policy.freelancer.section2.title">2. Mandatory Portfolio Contribution (Non-NDA)</h3>
+          <p data-i18n="policy.freelancer.section2.intro">As a condition of application and continued collaboration with Vilostudios:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section2.item1">All freelancers must contribute at least one public, non-NDA portfolio piece created in association with the Studio.</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section2.purpose">This contribution is mandatory and serves as:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section2.purpose1">Skill verification</li>
+            <li data-i18n="policy.freelancer.section2.purpose2">Portfolio development</li>
+            <li data-i18n="policy.freelancer.section2.purpose3">Studio showcase material</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section2.note1">These works are publicly accessible and not protected under NDA.</p>
+          <p data-i18n="policy.freelancer.section2.note2">Failure to comply may result in rejection of application or termination of collaboration.</p>
+
+          <h3 data-i18n="policy.freelancer.section3.title">3. Mandatory Annual Demo Reels (Animators & Sound Designers)</h3>
+          <h4 data-i18n="policy.freelancer.section3.subsection1.title">3.1 Requirement</h4>
+          <p data-i18n="policy.freelancer.section3.subsection1.intro">Animators and Sound Designers are required to participate in two (2) mandatory demo reels annually, held one to two times per year, subject to studio scheduling.</p>
+          <p data-i18n="policy.freelancer.section3.subsection1.details">Each demo reel includes:</p>
+          <ul>
+            <li><strong data-i18n="policy.freelancer.section3.subsection1.item1.label">Duration:</strong> <span data-i18n="policy.freelancer.section3.subsection1.item1.text">1–3 minutes total</span></li>
+            <li><strong data-i18n="policy.freelancer.section3.subsection1.item2.label">Cuts:</strong> <span data-i18n="policy.freelancer.section3.subsection1.item2.text">Each talent may contribute 1 to 5 cuts maximum</span></li>
+            <li><strong data-i18n="policy.freelancer.section3.subsection1.item3.label">Compensation:</strong> <span data-i18n="policy.freelancer.section3.subsection1.item3.text">Unpaid</span></li>
+            <li><strong data-i18n="policy.freelancer.section3.subsection1.item4.label">Nature:</strong> <span data-i18n="policy.freelancer.section3.subsection1.item4.text">Participation is mandatory</span></li>
+          </ul>
+          <p data-i18n="policy.freelancer.section3.subsection1.note">These demo reels are studio initiatives and a requirement for continued collaboration.</p>
+          
+          <h4 data-i18n="policy.freelancer.section3.subsection2.title">3.2 Usage Rights</h4>
+          <p data-i18n="policy.freelancer.section3.subsection2.intro">By participating, freelancers grant Vilostudios and all involved collaborators the right to:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section3.subsection2.item1">Publish, distribute, promote, and host demo reels</li>
+            <li data-i18n="policy.freelancer.section3.subsection2.item2">Use the works for marketing, studio showcases, and portfolio references</li>
+            <li data-i18n="policy.freelancer.section3.subsection2.item3">Allow other credited participants to share and reference the work</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section3.subsection2.note">These demo reels are public works and may be used by all credited contributors without time limitation.</p>
+
+          <h3 data-i18n="policy.freelancer.section4.title">4. Distribution & Platforms</h3>
+          <p data-i18n="policy.freelancer.section4.intro">Vilostudios reserves the right to upload and distribute portfolio works and demo reels on platforms including, but not limited to:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section4.item1">YouTube</li>
+            <li data-i18n="policy.freelancer.section4.item2">X (formerly Twitter)</li>
+            <li data-i18n="policy.freelancer.section4.item3">Other platforms that do not utilize machine-learning systems to scrape, train, or exploit creative works without consent</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section4.note">Vilostudios actively avoids platforms that engage in unethical creative data extraction.</p>
+
+          <h3 data-i18n="policy.freelancer.section5.title">5. Educational & Skill Development</h3>
+          <p data-i18n="policy.freelancer.section5.intro">During demo reel and portfolio productions:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section5.item1">Freelancers may share techniques and workflows</li>
+            <li data-i18n="policy.freelancer.section5.item2">Vilostudios may provide supervision, mentorship, and feedback</li>
+            <li data-i18n="policy.freelancer.section5.item3">The intent is continued skill refinement and professional growth</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section5.note">These initiatives are considered studio-guided development programs, not speculative or exploitative labor.</p>
+
+          <h3 data-i18n="policy.freelancer.section6.title">6. Creative Direction & Leadership</h3>
+          <p data-i18n="policy.freelancer.section6.intro">Portfolio works and demo reels may be directed or supervised by:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section6.item1">Episodic Directors</li>
+            <li data-i18n="policy.freelancer.section6.item2">Animation Directors promoted internally</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section6.note">Creative direction may be collaborative but remains subject to final approval by Vilostudios.</p>
+
+          <h3 data-i18n="policy.freelancer.section7.title">7. Client Projects & NDA Obligations</h3>
+          <h4 data-i18n="policy.freelancer.section7.subsection1.title">7.1 Client Project Confidentiality</h4>
+          <p data-i18n="policy.freelancer.section7.subsection1.intro">All projects undertaken for clients through Vilostudios are strictly confidential and governed by Non-Disclosure Agreements (NDAs).</p>
+          <p data-i18n="policy.freelancer.section7.subsection1.restriction">Freelancers may not, without prior written authorization:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section7.subsection1.item1">Disclose client identities or project details</li>
+            <li data-i18n="policy.freelancer.section7.subsection1.item2">Share assets, scripts, audio, visuals, or work-in-progress materials</li>
+            <li data-i18n="policy.freelancer.section7.subsection1.item3">Publicly reference client involvement</li>
+            <li data-i18n="policy.freelancer.section7.subsection1.item4">Use client work for portfolios unless explicitly approved in writing</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section7.subsection1.note">Confidentiality obligations apply before, during, and after project completion or termination.</p>
+
+          <h3 data-i18n="policy.freelancer.section8.title">8. Studio Operations & Proprietary Information</h3>
+          <p data-i18n="policy.freelancer.section8.text1">Freelancers acknowledge that Vilostudios utilizes proprietary software, tools, pipelines, workflows, and production methods, including internal creative and operational systems.</p>
+          <p data-i18n="policy.freelancer.section8.text2">All such information is confidential.</p>
+          <p data-i18n="policy.freelancer.section8.text3">Freelancers may not discuss, disclose, teach, publish, replicate, or demonstrate any proprietary Vilostudios operations outside the studio without prior written confirmation from authorized senior leadership.</p>
+
+          <h3 data-i18n="policy.freelancer.section9.title">9. Public Exceptions</h3>
+          <p data-i18n="policy.freelancer.section9.intro">The only exceptions to confidentiality obligations are:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section9.item1">Portfolio pieces explicitly designated as non-NDA</li>
+            <li data-i18n="policy.freelancer.section9.item2">Mandatory demo reels</li>
+            <li data-i18n="policy.freelancer.section9.item3">Content released through official Vilostudios channels</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section9.note">No work is considered public without explicit confirmation.</p>
+
+          <h3 data-i18n="policy.freelancer.section10.title">10. Professional Conduct & Good Faith</h3>
+          <h4 data-i18n="policy.freelancer.section10.subsection1.title">10.1 Mandatory Professional Behavior</h4>
+          <p data-i18n="policy.freelancer.section10.subsection1.intro">Freelancers must act in good faith and maintain a professional production environment at all times.</p>
+          <p data-i18n="policy.freelancer.section10.subsection1.prohibited">The following behaviors are strictly prohibited:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section10.subsection1.item1">Disrespectful or unprofessional communication</li>
+            <li data-i18n="policy.freelancer.section10.subsection1.item2">Toxic behavior, harassment, intimidation, or hostility</li>
+            <li data-i18n="policy.freelancer.section10.subsection1.item3">Personal disputes or interpersonal conflicts interfering with production</li>
+            <li data-i18n="policy.freelancer.section10.subsection1.item4">Any conduct that delays, disrupts, or destabilizes workflow</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section10.subsection1.consequence">Vilostudios may issue warnings or remove freelancers from productions if behavior negatively impacts the team or schedule. Severe or repeated violations may result in immediate termination.</p>
+          
+          <h4 data-i18n="policy.freelancer.section10.subsection2.title">10.2 Deadlines & Performance Standards</h4>
+          <p data-i18n="policy.freelancer.section10.subsection2.intro">Freelancers are required to respect all assigned deadlines.</p>
+          <p data-i18n="policy.freelancer.section10.subsection2.warning">Failure to deliver work on time three (3) or more times within a single calendar month may result in:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section10.subsection2.item1">Removal from the current production</li>
+            <li data-i18n="policy.freelancer.section10.subsection2.item2">Suspension from active assignments</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section10.subsection2.escalation">If missed deadlines become a regular occurrence, Vilostudios reserves the right to:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section10.subsection2.item3">Terminate collaboration entirely</li>
+            <li data-i18n="policy.freelancer.section10.subsection2.item4">Remove the freelancer from the Vilostudios talent database</li>
+            <li data-i18n="policy.freelancer.section10.subsection2.item5">Decline future project assignments</li>
+          </ul>
+
+          <h3 data-i18n="policy.freelancer.section11.title">11. Scheduling, Availability & Communication</h3>
+          <p data-i18n="policy.freelancer.section11.intro">Freelancers are responsible for managing their own schedules and availability.</p>
+          <p data-i18n="policy.freelancer.section11.requirements">All talents must:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section11.item1">Maintain an accurate personal work calendar</li>
+            <li data-i18n="policy.freelancer.section11.item2">Communicate availability, constraints, and changes in a timely manner</li>
+            <li data-i18n="policy.freelancer.section11.item3">Report availability directly to Production Assistants, Directors, and authorized studio leadership</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section11.expectations">Freelancers are expected to:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section11.item4">Confirm availability before accepting assignments</li>
+            <li data-i18n="policy.freelancer.section11.item5">Notify the production team immediately of any conflicts</li>
+            <li data-i18n="policy.freelancer.section11.item6">Respond within reasonable timeframes to scheduling or availability requests</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section11.note">Failure to properly communicate availability resulting in missed deadlines, production delays, or scheduling conflicts may be treated as a performance issue.</p>
+
+          <h3 data-i18n="policy.freelancer.section12.title">12. Freelancer Database & Work Availability Disclaimer</h3>
+          <p data-i18n="policy.freelancer.section12.text1">Inclusion in the Vilostudios freelancer database does not guarantee immediate work, recurring assignments, or consistent project availability.</p>
+          <p data-i18n="policy.freelancer.section12.text2">Vilostudios operates on a commission-based and project-greenlight model. Periods of inactivity may occur.</p>
+          <p data-i18n="policy.freelancer.section12.text3">Vilostudios is not responsible for guaranteeing workload, income, or continuous engagement.</p>
+
+          <h3 data-i18n="policy.freelancer.section13.title">13. Exclusivity</h3>
+          <h4 data-i18n="policy.freelancer.section13.subsection1.title">Freelancer Database Personnel</h4>
+          <p data-i18n="policy.freelancer.section13.subsection1.text">Inclusion in the Vilostudios freelancer database does not create an exclusivity obligation. Freelancers remain free to work for other studios, clients, or projects outside Vilostudios.</p>
+          
+          <h4 data-i18n="policy.freelancer.section13.subsection2.title">Director Positions</h4>
+          <p data-i18n="policy.freelancer.section13.subsection2.text1">Freelancers who are promoted to a Director-level position (via performance, promotion, or other studio appointments) are typically considered studio-exclusive.</p>
+          <p data-i18n="policy.freelancer.section13.subsection2.text2">This exclusivity includes a commitment to prioritize Vilostudios projects over external work.</p>
+          <p data-i18n="policy.freelancer.section13.subsection2.benefits">Director-level positions typically receive:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section13.subsection2.item1">Higher and regular payment</li>
+            <li data-i18n="policy.freelancer.section13.subsection2.item2">Potential full-time engagement</li>
+            <li data-i18n="policy.freelancer.section13.subsection2.item3">Expanded responsibilities and authority within the studio</li>
+          </ul>
+          
+          <h4 data-i18n="policy.freelancer.section13.subsection3.title">Transition to Exclusivity</h4>
+          <p data-i18n="policy.freelancer.section13.subsection3.text">Promotion to a Director position will be accompanied by formal confirmation in writing, outlining payment, duties, and exclusivity terms. Freelancers not promoted remain non-exclusive and may work elsewhere.</p>
+
+          <h3 data-i18n="policy.freelancer.section14.title">14. Governing Law & Dispute Resolution</h3>
+          <p data-i18n="policy.freelancer.section14.text1">These Terms shall be governed by and construed in accordance with the laws of the Emirate of Dubai and the federal laws of the United Arab Emirates.</p>
+          <p data-i18n="policy.freelancer.section14.text2">Any dispute, controversy, or claim arising out of or relating to these Terms, the freelancer's engagement, or services provided to Vilostudios shall be finally resolved by arbitration in Singapore under the rules of the Singapore International Arbitration Centre (SIAC).</p>
+          <p data-i18n="policy.freelancer.section14.arbitration">The arbitration shall:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section14.item1">Be conducted in English</li>
+            <li data-i18n="policy.freelancer.section14.item2">Take place in Singapore</li>
+            <li data-i18n="policy.freelancer.section14.item3">Be binding and final, with the award enforceable in any competent jurisdiction</li>
+          </ul>
+          <p data-i18n="policy.freelancer.section14.waiver">Freelancers agree to waive any rights to sue in courts except for enforcement of the arbitration award.</p>
+
+          <h3 data-i18n="policy.freelancer.section15.title">15. Enforcement & Authority</h3>
+          <p data-i18n="policy.freelancer.section15.text">All decisions regarding conduct, performance, scheduling, warnings, removals, or termination are made at the sole discretion of Vilostudios and its authorized leadership.</p>
+
+          <h3 data-i18n="policy.freelancer.section16.title">16. Acceptance of Terms</h3>
+          <p data-i18n="policy.freelancer.section16.intro">By applying to Vilostudios, submitting work, or participating in any studio initiative, you confirm that you:</p>
+          <ul>
+            <li data-i18n="policy.freelancer.section16.item1">Have read and understood these Terms</li>
+            <li data-i18n="policy.freelancer.section16.item2">Accept the mandatory portfolio and demo reel requirements</li>
+            <li data-i18n="policy.freelancer.section16.item3">Agree to confidentiality, conduct, scheduling, performance, exclusivity, and availability standards</li>
+            <li data-i18n="policy.freelancer.section16.item4">Acknowledge the public and non-NDA nature of designated works</li>
+          </ul>
+      </section>
+    </main>
+    </div>
+  </div>
+
+  <script src="js/translations.js"></script>
+  <script src="js/language.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/video.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>
+    // Check login state for profile display
+    function checkLoginState() {
+      try {
+        const stored = localStorage.getItem('vilostudios_user');
+        const userProfileNav = document.getElementById('user-profile-nav');
+        const navLoginButton = document.getElementById('nav-login-button');
+        const navUserAvatar = document.getElementById('nav-user-avatar');
+        const navUserName = document.getElementById('nav-user-name');
+        const navUserButtonLink = document.getElementById('nav-user-button-link');
+        
+        if (!stored) {
+          if (userProfileNav) userProfileNav.style.display = 'none';
+          if (navLoginButton) navLoginButton.style.display = 'flex';
+          return;
+        }
+        
+        const userData = JSON.parse(stored);
+        if (userData && userData.email) {
+          // User is logged in - show profile
+          if (userProfileNav) userProfileNav.style.display = 'flex';
+          if (navLoginButton) navLoginButton.style.display = 'none';
+          
+          // Set user name (first name only)
+          if (navUserName && userData.name) {
+            const firstName = userData.name.split(' ')[0];
+            navUserName.textContent = firstName;
+          }
+          
+          // Set profile picture
+          if (navUserAvatar) {
+            const profilePic = localStorage.getItem('vilostudios_profile_pic');
+            if (profilePic) {
+              navUserAvatar.style.backgroundImage = `url(${profilePic})`;
+              navUserAvatar.style.backgroundSize = 'cover';
+              navUserAvatar.style.backgroundPosition = 'center';
+        } else {
+              navUserAvatar.style.backgroundImage = 'none';
+              if (userData.name) {
+                navUserAvatar.textContent = userData.name.charAt(0).toUpperCase();
+              }
+            }
+          }
+        } else {
+          if (userProfileNav) userProfileNav.style.display = 'none';
+          if (navLoginButton) navLoginButton.style.display = 'flex';
+        }
+      } catch (e) {
+        console.error('Error checking login state:', e);
+      }
+    }
+    
+    // Initialize language
+    if (typeof window.LanguageManager !== 'undefined') {
+      window.LanguageManager.currentLanguage = window.LanguageManager.detectLanguage();
+      window.LanguageManager.setLanguage(window.LanguageManager.currentLanguage);
+      
+      // Listen for language changes to update policy content
+      const originalSetLanguage = window.LanguageManager.setLanguage;
+      window.LanguageManager.setLanguage = function(lang) {
+        originalSetLanguage.call(this, lang);
+        // Update policy content when language changes
+        updatePolicyContent(lang);
+      };
+    }
+    
+    // Function to update policy content based on language
+    function updatePolicyContent(lang) {
+      if (!window.Translations || !window.Translations[lang]) return;
+      const t = window.Translations[lang];
+      
+      // Update all elements with data-i18n attributes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        const keys = key.split('.');
+        let value = t;
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        if (value) {
+          // Handle HTML content (for intro2 which has <br>)
+          if (value.includes('\n')) {
+            el.innerHTML = value.replace(/\n/g, '<br>');
+          } else {
+            el.textContent = value;
+          }
+        }
+      });
+    }
+    
+    // Handle sidebar navigation
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarItems = document.querySelectorAll('.sidebar-nav-item');
+      const policySections = document.querySelectorAll('.policy-section');
+      const resourcesContent = document.querySelector('.resources-content');
+      const styleOptions = document.querySelectorAll('.style-option');
+      
+      // Function to show only selected policy
+      function showPolicy(policyId) {
+        // Hide all policies
+        policySections.forEach(section => {
+          section.classList.remove('active');
+        });
+        
+        // Show selected policy
+        const targetSection = document.getElementById(policyId);
+        if (targetSection) {
+          targetSection.classList.add('active');
+          // Scroll to top of content area
+          resourcesContent.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Update active state in sidebar
+        sidebarItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('data-policy') === policyId) {
+            item.classList.add('active');
+          }
+        });
+        
+        // Update URL hash
+        window.history.replaceState(null, null, `#${policyId}`);
+      }
+      
+      // Handle sidebar clicks
+      sidebarItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = item.getAttribute('data-policy');
+          showPolicy(targetId);
+        });
+      });
+      
+      // Handle style selector
+      function setContentStyle(style) {
+        resourcesContent.classList.remove('style-grey', 'style-blue', 'style-white');
+        resourcesContent.classList.add(`style-${style}`);
+        
+        // Update active state
+        styleOptions.forEach(option => {
+          option.classList.remove('active');
+          if (option.getAttribute('data-style') === style) {
+            option.classList.add('active');
+          }
+        });
+        
+        // Save preference
+        localStorage.setItem('vilostudios_content_style', style);
+      }
+      
+      // Load saved style preference
+      const savedStyle = localStorage.getItem('vilostudios_content_style') || 'grey';
+      setContentStyle(savedStyle);
+      
+      // Handle style option clicks
+      styleOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          const style = option.getAttribute('data-style');
+          setContentStyle(style);
+        });
+      });
+      
+      // Show first policy by default or based on hash
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        showPolicy(hash);
+      } else {
+        // Show first policy by default
+        const firstPolicy = sidebarItems[0]?.getAttribute('data-policy');
+        if (firstPolicy) {
+          showPolicy(firstPolicy);
+        }
+      }
+    });
+    
+    // Handle hash navigation
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        const sidebarItems = document.querySelectorAll('.sidebar-nav-item');
+        const policySections = document.querySelectorAll('.policy-section');
+        const resourcesContent = document.querySelector('.resources-content');
+        
+        // Hide all policies
+        policySections.forEach(section => {
+          section.classList.remove('active');
+        });
+        
+        // Show selected policy
+        const targetSection = document.getElementById(hash);
+        if (targetSection) {
+          targetSection.classList.add('active');
+          resourcesContent.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Update active sidebar item
+        sidebarItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('data-policy') === hash) {
+            item.classList.add('active');
+        }
+      });
+    }
+    });
+    
+    // Initialize
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkLoginState);
+    } else {
+      checkLoginState();
+    }
+    
+    // Listen for storage changes (cross-tab login state sync)
+    window.addEventListener('storage', checkLoginState);
+    
+    // Initialize Language Manager
+    if (window.LanguageManager) {
+      const currentLang = window.LanguageManager.detectLanguage();
+      window.LanguageManager.setLanguage(currentLang);
+      
+      // Language button handlers
+      document.querySelectorAll('.lang-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.dataset.lang;
+          window.LanguageManager.setLanguage(lang);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
