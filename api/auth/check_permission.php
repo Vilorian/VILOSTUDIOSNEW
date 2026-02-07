@@ -44,6 +44,10 @@ function isInternalRecruiter() {
     return getUserRole() === 'internal_recruiter';
 }
 
+function isModerator() {
+    return getUserRole() === 'moderator';
+}
+
 function isProductionAssistant() {
     return getUserRole() === 'production_assistant';
 }

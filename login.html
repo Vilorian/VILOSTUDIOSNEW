@@ -191,63 +191,6 @@
       to { transform: rotate(360deg); }
     }
 
-    .bypass-toggle-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      padding: 0.75rem;
-      background: rgba(255, 107, 53, 0.1);
-      border: 1px solid rgba(255, 107, 53, 0.3);
-      border-radius: 12px;
-    }
-
-    .bypass-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .bypass-toggle input[type="checkbox"] {
-      display: none;
-    }
-
-    .bypass-slider {
-      position: relative;
-      width: 48px;
-      height: 24px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      transition: all 0.3s ease;
-    }
-
-    .bypass-slider::before {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.6);
-      top: 3px;
-      left: 3px;
-      transition: all 0.3s ease;
-    }
-
-    .bypass-toggle input[type="checkbox"]:checked + .bypass-slider {
-      background: #FF6B35;
-    }
-
-    .bypass-toggle input[type="checkbox"]:checked + .bypass-slider::before {
-      transform: translateX(24px);
-      background: #ffffff;
-    }
-
-    .bypass-label {
-      font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 600;
-    }
   </style>
 </head>
 <body>
@@ -269,15 +212,6 @@
         
         <h1 class="login-title">Login</h1>
         <p class="login-subtitle">Employee & Partner Access</p>
-
-        <!-- Bypass Toggle -->
-        <div class="bypass-toggle-container">
-          <label class="bypass-toggle">
-            <input type="checkbox" id="bypass-toggle" checked>
-            <span class="bypass-slider"></span>
-            <span class="bypass-label">Bypass Mode (Kevin Login)</span>
-          </label>
-        </div>
 
         <div class="error-message" id="error-message"></div>
 
@@ -324,242 +258,21 @@
     </div>
   </div>
 
+  <script src="video.js"></script>
   <script>
-    // Initialize background video
-    const videoSources = [
-      'src/videos/Second Video.mp4',
-      'src/videos/Main Video.mp4',
-      'src/videos/Kuro Games/28_6.mp4',
-      'src/videos/Kuro Games/8.mp4',
-      'src/videos/Kuro Games/Changli_wuwa_230001-0120.mp4',
-      'src/videos/Kuro Games/jiyan1 (1).mp4',
-      'src/videos/Kuro Games/p.mp4',
-      'src/videos/Kuro Games/retake_6.mp4',
-      'src/videos/Kuro Games/Sc01_Sh010_V04 (3).mp4',
-      'src/videos/Kuro Games/SC01_SH12_v03 (1).mp4',
-      'src/videos/Kuro Games/SC01_SH37_v06 (1).mp4',
-      'src/videos/Kuro Games/ww23.016_1.mp4'
-    ];
-
-    let currentVideoIndex = 0;
-    let isSwitching = false;
-    let activeVideo = null;
-    let inactiveVideo = null;
-
-    function initBackgroundVideo() {
-      const video1 = document.getElementById('video1');
-      const video2 = document.getElementById('video2');
-      
-      if (!video1 || !video2 || videoSources.length === 0) return;
-      
-      activeVideo = video1;
-      inactiveVideo = video2;
-      
-      ensureNoLoop(video1);
-      ensureNoLoop(video2);
-      
-      video1.style.opacity = '1';
-      video1.style.zIndex = '0';
-      video2.style.opacity = '0';
-      video2.style.zIndex = '1';
-      
-      loadAndPlayVideo(video1, videoSources[0]).then(() => {
-        video1.addEventListener('ended', handleVideoEnded, { once: false });
-      });
-    }
-
-    function ensureNoLoop(video) {
-      video.loop = false;
-      video.removeAttribute('loop');
-    }
-
-    function loadAndPlayVideo(video, src) {
-      return new Promise((resolve, reject) => {
-        video.pause();
-        video.currentTime = 0;
-        ensureNoLoop(video);
-        
-        video.src = src;
-        video.preload = 'auto';
-        video.load();
-        
-        let resolved = false;
-        
-        const onCanPlay = () => {
-          if (resolved) return;
-          ensureNoLoop(video);
-          
-          if (video.currentTime !== 0) {
-            video.currentTime = 0;
-          }
-          
-          const playVideo = () => {
-            if (resolved) return;
-            video.play().then(() => {
-              if (!resolved) {
-                resolved = true;
-                if (video === activeVideo) {
-                  video.style.opacity = '1';
-                  video.style.zIndex = '0';
-                }
-                resolve();
-              }
-            }).catch(reject);
-          };
-          
-          if (video.readyState >= 3) {
-            if (video.currentTime === 0) {
-              playVideo();
-            } else {
-              video.currentTime = 0;
-              video.addEventListener('seeked', playVideo, { once: true });
-            }
-          } else {
-            video.addEventListener('canplay', playVideo, { once: true });
-          }
-        };
-        
-        video.addEventListener('canplaythrough', onCanPlay, { once: true });
-        video.addEventListener('loadeddata', onCanPlay, { once: true });
-        video.addEventListener('error', (e) => {
-          if (!resolved) {
-            resolved = true;
-            reject(new Error(`Failed to load: ${src}`));
-          }
-        }, { once: true });
-        
-        setTimeout(() => {
-          if (!resolved && video.readyState >= 3) {
-            onCanPlay();
-          }
-        }, 3000);
-      });
-    }
-
-    function handleVideoEnded() {
-      if (isSwitching) return;
-      
-      if (videoSources.length <= 1) {
-        const active = activeVideo;
-        if (active) {
-          active.removeEventListener('ended', handleVideoEnded);
-          loadAndPlayVideo(active, videoSources[0]).then(() => {
-            active.addEventListener('ended', handleVideoEnded, { once: false });
-          });
-        }
-        return;
-      }
-      
-      switchToNext();
-    }
-
-    function switchToNext() {
-      if (isSwitching) return;
-      
-      isSwitching = true;
-      currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
-      const nextSrc = videoSources[currentVideoIndex];
-      
-      const active = activeVideo;
-      const inactive = inactiveVideo;
-      
-      if (!active || !inactive) {
-        isSwitching = false;
-        return;
-      }
-      
-      active.removeEventListener('ended', handleVideoEnded);
-      active.pause();
-      active.currentTime = 0;
-      
-      inactive.style.opacity = '0';
-      inactive.style.zIndex = '1';
-      inactive.style.transition = 'opacity 0s';
-      ensureNoLoop(inactive);
-      
-      loadAndPlayVideo(inactive, nextSrc).then(() => {
-        const temp = activeVideo;
-        activeVideo = inactiveVideo;
-        inactiveVideo = temp;
-        
-        const newActive = activeVideo;
-        const newInactive = inactiveVideo;
-        
-        requestAnimationFrame(() => {
-          newActive.style.transition = 'opacity 2s ease-in-out';
-          newActive.style.opacity = '1';
-          newActive.style.zIndex = '0';
-          
-          newInactive.style.opacity = '0';
-          newInactive.style.zIndex = '1';
-          newInactive.style.transition = 'opacity 0s';
-        });
-        
-        ensureNoLoop(newActive);
-        newActive.addEventListener('ended', handleVideoEnded, { once: false });
-        
-        isSwitching = false;
-      }).catch(() => {
-        isSwitching = false;
-      });
-    }
-
     // Login form handling
     const loginForm = document.getElementById('login-form');
     const errorMessage = document.getElementById('error-message');
     const loginButton = document.getElementById('login-button');
     const buttonText = document.getElementById('button-text');
-    const bypassToggle = document.getElementById('bypass-toggle');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
-
-    // Auto-fill Kevin's credentials when bypass is enabled
-    bypassToggle.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        emailInput.value = 'kevin@vilostudios.com';
-        passwordInput.value = 'Tankcrev#1';
-      } else {
-        emailInput.value = '';
-        passwordInput.value = '';
-      }
-    });
-
-    // Set initial values if bypass is checked on load
-    if (bypassToggle.checked) {
-      emailInput.value = 'kevin@vilostudios.com';
-      passwordInput.value = 'Tankcrev#1';
-    }
 
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       let email = emailInput.value.trim();
       let password = passwordInput.value;
-      
-      // If bypass is enabled, handle login client-side
-      if (bypassToggle.checked && email.toLowerCase() === 'kevin@vilostudios.com' && password === 'Tankcrev#1') {
-        // Client-side bypass - no server needed
-        errorMessage.classList.remove('show');
-        loginButton.disabled = true;
-        buttonText.textContent = 'Signing In...';
-        
-        // Store user info in localStorage (for client-side session)
-        localStorage.setItem('vilostudios_user', JSON.stringify({
-          email: 'kevin@vilostudios.com',
-          role: 'manager',
-          name: 'Kevin MD',
-          permissions: ['access_all'],
-          bypass: true,
-          loginTime: new Date().toISOString()
-        }));
-        
-        // Simulate login delay
-        setTimeout(() => {
-          // Redirect to dashboard (try HTML first for bypass, fallback to PHP)
-          window.location.href = 'dashboard/employee/index.html';
-        }, 500);
-        return;
-      }
       
       // Hide error message
       errorMessage.classList.remove('show');
@@ -631,12 +344,7 @@
         }
       } catch (error) {
         console.error('Login error:', error);
-        // If bypass is on but credentials don't match, show specific message
-        if (bypassToggle.checked) {
-          errorMessage.textContent = 'Bypass mode is on. Please use kevin@vilostudios.com / Tankcrev#1';
-        } else {
-          errorMessage.textContent = 'An error occurred. Please try again later. (Note: PHP server may not be running)';
-        }
+        errorMessage.textContent = 'An error occurred. Please try again later. (Note: PHP server may not be running)';
         errorMessage.classList.add('show');
         loginButton.disabled = false;
         buttonText.textContent = 'Sign In';

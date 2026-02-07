@@ -19,25 +19,49 @@ try {
         throw new Exception('Database connection not available');
     }
     
-    // Build query joining freelancers with emails
-    $query = "SELECT 
-        f.id,
-        f.name,
-        f.department,
-        f.roles,
-        f.departments,
-        f.created_at,
-        f.updated_at,
-        fe.email
-    FROM freelancers f
-    LEFT JOIN freelancer_emails fe ON f.id = fe.freelancer_id
-    WHERE 1=1";
+    // Check if freelancer_emails exists; otherwise use freelancers.email if available
+    $hasEmailsTable = false;
+    try {
+        $pdo->query("SELECT 1 FROM freelancer_emails LIMIT 1");
+        $hasEmailsTable = true;
+    } catch (PDOException $e) {
+        // Table doesn't exist
+    }
+    
+    if ($hasEmailsTable) {
+        $query = "SELECT f.id, f.name, f.department, f.roles, f.departments, f.created_at, f.updated_at,
+            (SELECT fe.email FROM freelancer_emails fe WHERE fe.freelancer_id = f.id LIMIT 1) as email
+            FROM freelancers f WHERE 1=1";
+    } else {
+        $emailCol = '';
+        try {
+            $pdo->query("SELECT email FROM freelancers LIMIT 1");
+            $emailCol = ', f.email';
+        } catch (PDOException $e) { /* no email column */ }
+        $query = "SELECT f.id, f.name, f.department, f.roles, f.departments, f.created_at, f.updated_at" . $emailCol . "
+            FROM freelancers f WHERE 1=1";
+        if (!$emailCol) {
+            $query = str_replace('f.updated_at', "f.updated_at, '' as email", $query);
+        }
+    }
     $params = [];
     
     if (!empty($search)) {
-        $query .= " AND (f.name LIKE ? OR fe.email LIKE ? OR f.roles LIKE ? OR f.department LIKE ? OR f.departments LIKE ?)";
         $searchParam = "%{$search}%";
-        $params = array_merge($params, [$searchParam, $searchParam, $searchParam, $searchParam, $searchParam]);
+        $searchParts = ["f.name LIKE ?", "f.roles LIKE ?", "f.department LIKE ?", "f.departments LIKE ?"];
+        $searchParams = [$searchParam, $searchParam, $searchParam, $searchParam];
+        if ($hasEmailsTable) {
+            $query .= " AND (" . implode(' OR ', $searchParts) . " OR EXISTS (SELECT 1 FROM freelancer_emails fe2 WHERE fe2.freelancer_id = f.id AND fe2.email LIKE ?))";
+            $searchParams[] = $searchParam;
+        } else {
+            $hasEmailCol = strpos($query, 'f.email') !== false;
+            if ($hasEmailCol) {
+                $searchParts[] = "f.email LIKE ?";
+                $searchParams[] = $searchParam;
+            }
+            $query .= " AND (" . implode(' OR ', $searchParts) . ")";
+        }
+        $params = array_merge($params, $searchParams);
     }
     
     if (!empty($department)) {

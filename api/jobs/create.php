@@ -72,17 +72,22 @@ try {
     
     $jobId = $pdo->lastInsertId();
     
-    echo json_encode([
-        'success' => true,
-        'message' => 'Position created successfully',
-        'data' => [
-            'id' => $jobId,
-            'role' => $role,
-            'branch' => $branch,
-            'jobType' => $jobType,
-            'pay' => $pay
-        ]
-    ]);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Position created successfully',
+            'data' => [
+                'id' => $jobId,
+                'role' => $role,
+                'branch' => $branch,
+                'jobType' => $jobType,
+                'pay' => $pay
+            ]
+        ]);
+        
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        throw $e;
+    }
     
 } catch (PDOException $e) {
     error_log("Database error in jobs/create.php: " . $e->getMessage());

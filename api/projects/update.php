@@ -38,6 +38,11 @@ try {
         $params[] = $data['client_name'];
     }
     
+    if (array_key_exists('client_email', $data)) {
+        $updates[] = "client_email = ?";
+        $params[] = $data['client_email'] ?: null;
+    }
+    
     if (isset($data['creation_date'])) {
         $updates[] = "creation_date = ?";
         $params[] = $data['creation_date'] ?: null;

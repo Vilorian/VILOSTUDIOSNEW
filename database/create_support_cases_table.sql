@@ -35,3 +35,14 @@ CREATE TABLE IF NOT EXISTS `support_case_replies` (
   CONSTRAINT `fk_support_case_replies_case` FOREIGN KEY (`case_id`) REFERENCES `support_cases` (`case_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+
+
+
+
+
+
+
+
+
+

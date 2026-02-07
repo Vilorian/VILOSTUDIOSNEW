@@ -66,6 +66,7 @@ try {
         project_name, 
         client_id, 
         client_name,
+        client_email,
         cover_image_path,
         creation_date,
         finished_date,
@@ -76,26 +77,31 @@ try {
         is_hidden,
         created_by,
         created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
     
     $stmt = $pdo->prepare($sql);
     
-    // Determine public status based on NDA
-    $isPublic = 1; // Default public
-    if ($data['nda_enabled'] && !empty($data['nda_date'])) {
-        $ndaDate = new DateTime($data['nda_date']);
-        $now = new DateTime();
-        if ($ndaDate > $now) {
-            $isPublic = 0; // Not public until NDA date
+    // Determine public status: portfolio visible AND not under NDA
+    $portfolioVisible = isset($data['portfolio_visible']) ? (bool)$data['portfolio_visible'] : true;
+    $isPublic = $portfolioVisible ? 1 : 0;
+    
+    if ($portfolioVisible && $data['nda_enabled']) {
+        if (!empty($data['nda_date'])) {
+            $ndaDate = new DateTime($data['nda_date']);
+            $now = new DateTime();
+            if ($ndaDate > $now) {
+                $isPublic = 0; // Not public until NDA date
+            }
+        } else {
+            $isPublic = 0; // Not public if NDA enabled without date
         }
-    } else if ($data['nda_enabled'] && empty($data['nda_date'])) {
-        $isPublic = 0; // Not public if NDA enabled without date
     }
     
     $stmt->execute([
         $data['project_name'],
         $data['client_id'] ?? null,
         $data['client_name'] ?? null,
+        $data['client_email'] ?? null,
         $coverPath,
         $data['creation_date'] ?? null,
         $data['finished_date'] ?? null,

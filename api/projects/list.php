@@ -15,16 +15,25 @@ try {
         throw new Exception('Database connection not available');
     }
     
+    // Filter by client email when provided (clients see only their projects)
+    $clientEmail = isset($_GET['client_email']) ? trim($_GET['client_email']) : null;
+    
     $query = "SELECT 
         p.*,
         COUNT(pm.id) as team_member_count
     FROM projects p
-    LEFT JOIN project_members pm ON p.id = pm.project_id
-    GROUP BY p.id
-    ORDER BY p.created_at DESC";
+    LEFT JOIN project_members pm ON p.id = pm.project_id";
+    
+    $params = [];
+    if (!empty($clientEmail)) {
+        $query .= " WHERE p.client_email = ?";
+        $params[] = $clientEmail;
+    }
+    
+    $query .= " GROUP BY p.id ORDER BY p.created_at DESC";
     
     $stmt = $pdo->prepare($query);
-    $stmt->execute();
+    $stmt->execute($params);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     echo json_encode([
@@ -42,4 +51,15 @@ try {
     ]);
 }
 ?>
+
+
+
+
+
+
+
+
+
+
+
 

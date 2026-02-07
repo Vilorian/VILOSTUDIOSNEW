@@ -43,6 +43,47 @@ if (strtolower($email) === 'kevin@vilostudios.com' && $password === 'Tankcrev#1'
     $_SESSION['user_name'] = 'Kevin MD';
     $_SESSION['user_permissions'] = ['access_all']; // Manager has all permissions
     
+    // Create or update community profile for bypass user
+    try {
+        $pdo = new PDO(
+            "mysql:host=127.0.0.1:3306;dbname=u431247581_vilostudios;charset=utf8mb4",
+            'root',
+            '',
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+        
+        // Check if community_users table exists
+        $pdo->query("SELECT 1 FROM community_users LIMIT 1");
+        
+        // Check if community profile exists
+        $communityStmt = $pdo->prepare("SELECT id FROM community_users WHERE email = ?");
+        $communityStmt->execute(['kevin@vilostudios.com']);
+        $communityUser = $communityStmt->fetch();
+        
+        if (!$communityUser) {
+            // Create community profile automatically
+            $randomPassword = bin2hex(random_bytes(16));
+            $passwordHash = password_hash($randomPassword, PASSWORD_DEFAULT);
+            
+            $insertStmt = $pdo->prepare("
+                INSERT INTO community_users (email, username, password_hash, role, email_verified)
+                VALUES (?, ?, ?, 'staff', 1)
+            ");
+            $insertStmt->execute(['kevin@vilostudios.com', 'kevin', $passwordHash]);
+        } else {
+            // Update role to staff
+            $updateStmt = $pdo->prepare("UPDATE community_users SET role = 'staff' WHERE email = ?");
+            $updateStmt->execute(['kevin@vilostudios.com']);
+        }
+    } catch (PDOException $e) {
+        // Community table doesn't exist yet or error occurred - continue with login
+        error_log("Community profile creation error (bypass): " . $e->getMessage());
+    }
+    
     echo json_encode([
         'success' => true,
         'message' => 'Login successful (bypass mode).',
@@ -53,36 +94,13 @@ if (strtolower($email) === 'kevin@vilostudios.com' && $password === 'Tankcrev#1'
             'role' => 'manager',
             'permissions' => ['access_all']
         ],
-        'dashboard' => 'dashboard/employee/index.php'
+        'dashboard' => 'dashboard/employee/index.html'
     ]);
     exit;
 }
 
-// Database configuration - adjust path as needed
-$host = '127.0.0.1:3306';
-$dbname = 'u431247581_vilostudios';
-$username = 'root'; // Update with your database username
-$password_db = ''; // Update with your database password
-
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-        $username,
-        $password_db,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ]
-    );
-} catch (PDOException $e) {
-    error_log("Database connection error: " . $e->getMessage());
-    echo json_encode([
-        'success' => false,
-        'message' => 'Database connection failed.'
-    ]);
-    exit;
-}
+// Use shared database config
+require_once __DIR__ . '/../../database/config.php';
 
 try {
     // Check if user is an employee (@vilostudios.com domain)
@@ -237,13 +255,68 @@ try {
         $_SESSION['user_name'] = $userName;
         $_SESSION['user_permissions'] = $userPermissions;
         
+        // Create or update community profile for dashboard users
+        try {
+            // Check if community_users table exists
+            $pdo->query("SELECT 1 FROM community_users LIMIT 1");
+            
+            // Check if community profile exists
+            $communityStmt = $pdo->prepare("SELECT id FROM community_users WHERE email = ?");
+            $communityStmt->execute([$email]);
+            $communityUser = $communityStmt->fetch();
+            
+            if (!$communityUser) {
+                // Create community profile automatically
+                $username = explode('@', $email)[0]; // Use email prefix as username
+                $usernameBase = $username;
+                $usernameCounter = 1;
+                
+                // Ensure username is unique
+                while (true) {
+                    $checkStmt = $pdo->prepare("SELECT id FROM community_users WHERE username = ?");
+                    $checkStmt->execute([$username]);
+                    if (!$checkStmt->fetch()) {
+                        break;
+                    }
+                    $username = $usernameBase . $usernameCounter;
+                    $usernameCounter++;
+                }
+                
+                // Generate a random password for community account (user won't need to use it)
+                $randomPassword = bin2hex(random_bytes(16));
+                $passwordHash = password_hash($randomPassword, PASSWORD_DEFAULT);
+                
+                // Determine community role based on dashboard role
+                $communityRole = 'member';
+                if ($userRole === 'manager' || $userRole === 'ambassador' || $userRole === 'internal_recruiter' || $userRole === 'moderator') {
+                    $communityRole = 'staff';
+                }
+                
+                $insertStmt = $pdo->prepare("
+                    INSERT INTO community_users (email, username, password_hash, role, email_verified)
+                    VALUES (?, ?, ?, ?, 1)
+                ");
+                $insertStmt->execute([$email, $username, $passwordHash, $communityRole]);
+            } else {
+                // Update role if user is staff
+                if ($userRole === 'manager' || $userRole === 'ambassador' || $userRole === 'internal_recruiter' || $userRole === 'moderator') {
+                    $updateStmt = $pdo->prepare("UPDATE community_users SET role = 'staff' WHERE email = ?");
+                    $updateStmt->execute([$email]);
+                }
+            }
+        } catch (PDOException $e) {
+            // Community table doesn't exist yet or error occurred - continue with login
+            error_log("Community profile creation error: " . $e->getMessage());
+        }
+        
         // Determine dashboard route based on role
         $dashboardRoute = 'dashboard/index.php';
         switch ($userRole) {
             case 'manager':
             case 'ambassador':
             case 'internal_recruiter':
-                $dashboardRoute = 'dashboard/employee/index.php';
+            case 'moderator':
+                $dashboardRoute = 'dashboard/employee/index.html';
                 break;
             case 'production_assistant':
                 $dashboardRoute = 'dashboard/production/index.php';
